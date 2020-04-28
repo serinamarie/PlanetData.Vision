@@ -1,3 +1,6 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/89fe2c715447b3929eab/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/earth-dashboard-ds/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/89fe2c715447b3929eab/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/earth-dashboard-ds/test_coverage)
+
 🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline. Feel free to add your own flare to it.
 
 🚫 The numbers 1️⃣ through 5️⃣ next to each item represent the week that part of the docs needs to be comepleted by.  Make sure to delete the numbers by the end of Labs.
