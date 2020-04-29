@@ -9,7 +9,6 @@ def get_data():
     nested_dict = response.json()
     # Just get country data
     record_list = nested_dict['Countries']
-
     for record in record_list:
         # get existing record from the db or initialize a new one
         db_record = Summary.query.get(record['Slug']) or Summary(slug=record['Slug'])

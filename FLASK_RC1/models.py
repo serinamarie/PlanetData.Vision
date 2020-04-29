@@ -5,7 +5,7 @@ db = SQLAlchemy()
 
 
 class Summary(db.Model):
-    '''attributes of summary class'''
+    '''Attributes of summary API class'''
     slug = db.Column(db.String(100), primary_key=True)  # assigns this field
     country = db.Column(db.String(100), unique=True)
     countrycode = db.Column(db.String(100), unique=True)
@@ -19,7 +19,7 @@ class Summary(db.Model):
 
 
 class USLive(db.Model):
-    '''us live classes'''
+    '''Attributes of us live API class'''
     id = db.Column(db.Integer, primary_key=True)  # assigns this field
     country = db.Column(db.String(100), unique=True)
     state = db.Column(db.String(200))

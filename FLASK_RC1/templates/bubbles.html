@@ -1,5 +1,10 @@
 <!-- Code from d3-graph-gallery.com -->
 <!DOCTYPE html>
+<html>
+  <head>
+    <title>Earth Dashboard</title>
+
+
 <meta charset="utf-8">
 
 <!-- Load d3.js -->
@@ -9,12 +14,13 @@
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <div id="title-text">
 
-          <h1>Biases in Bubbles:<br />The Spread of COVID-19Confirmed Cases vs Population</h1>
-          <p>The goal of modeling is to approximate real-life situations by identifying and encoding patterns in data. Models make mistakes if those patterns are overly simple or overly complex. </p>
-          <p>In <a href="/visual-intro-to-machine-learning-part-1/" target="_blank">Part 1</a>, we created a model that distinguishes homes in San Francisco from those in New York. Now, we'll talk about tuning and the Bias-Variance tradeoff.</p>
+          <h1>Biases in Bubbles:</h1>
+          <h2>The Spread of COVID-19: Confirmed Cases vs Population</h2>
+          <p>One goal of data visualization is to communicate information that accounts for both accuracy and depth. In this case, we have a high level of accuracy, but no accounting for the different populations of each country. </p>
+
         </div>
 <!-- Create a div where the graph will take place -->
-<div id="my_dataviz"></div>
+<div id="bubble"></div>
 
 <style>
 .node:hover{
@@ -31,14 +37,13 @@ var width = 960
 var height = 460
 
 // append the svg object to the body of the page
-var svg = d3.select("#my_dataviz")
+var svg = d3.select("#bubble")
   .append("svg")
     .attr("width", width)
     .attr("height", height)
 
 // Read data
-d3.csv("https://raw.githubusercontent.com/serinamarie/temp/master/merged.csv?token=AKAZ3BBIBNJOJA5SWHZK54C6V63UE", function(data) {
-
+d3.csv("https://raw.githubusercontent.com/Lambda-School-Labs/earth-dashboard-ds/feature/flask_rc1/FLASK_RC1/merged.csv", function(data) {
   // Filter a bit the data -> more than 1 confirmed case
   data = data.filter(function(d){ return d.TotalConfirmed>0 })
 
@@ -49,11 +54,11 @@ d3.csv("https://raw.githubusercontent.com/serinamarie/temp/master/merged.csv?tok
 
   // Size scale for countries
   var size = d3.scaleLinear()
-    .domain([0, 1000000])
+    .domain([0, 800000])
     .range([7,75])  // circle will be between 7 and 55 px wide
 
   // create a tooltip
-  var Tooltip = d3.select("#my_dataviz")
+  var Tooltip = d3.select("#bubble")
     .append("div")
     .style("opacity", 0)
     .attr("class", "tooltip")
@@ -135,11 +140,16 @@ d3.csv("https://raw.githubusercontent.com/serinamarie/temp/master/merged.csv?tok
 
 })
 
+
 </script>
 <br><br>
 <div id="title-text">
-          <span id="sub-title">A visual introduction<br /> to machine learning&mdash;Part II</span>
-          <h1>Model Tuning and<br />the&nbsp;Bias-Variance&nbsp;Tradeoff</h1>
-          <p>The goal of modeling is to approximate real-life situations by identifying and encoding patterns in data. Models make mistakes if those patterns are overly simple or overly complex. </p>
-          <p>In <a href="/visual-intro-to-machine-learning-part-1/" target="_blank">Part 1</a>, we created a model that distinguishes homes in San Francisco from those in New York. Now, we'll talk about tuning and the Bias-Variance tradeoff.</p>
+          <p>The better way to illustrate this data would be to look at confirmed cases per 100,000 people in each country.</p>
+          <p>This way we could determine if one country has a higher rate of infection than another.</p>
+          <br><br><br><br>
+
         </div>
+
+
+      </body>
+    </html>

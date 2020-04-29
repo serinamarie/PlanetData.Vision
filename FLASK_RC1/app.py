@@ -4,10 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from dotenv import load_dotenv
 import psycopg2
-from pathlib import Path
-import os
 from models import Summary, USLive, db
-from api_to_db import get_data
+from covid_route import get_data
 
 
 # get our environment variables
@@ -36,15 +34,17 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/summary")
+@app.route("/data")
 def data():
     '''Updates the db with fresher data from the summary API, then
-    retrieves list of dictionaries from db'''
-    return jsonify(get_data())
+    retrieves json from db'''
+    data = jsonify(get_data())
+    return data
 
 
 @app.route("/bubbles")
-def example():
+def bubbles():
+    '''Provides a brief covid tutorial and visual'''
     return render_template('bubbles.html')
 
 
