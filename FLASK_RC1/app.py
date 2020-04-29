@@ -1,11 +1,12 @@
 import requests
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 import os
 from dotenv import load_dotenv
 import psycopg2
 from models import Summary, USLive, db
 from covid_route import get_data
+import json
 
 
 # get our environment variables
@@ -30,21 +31,26 @@ db.init_app(app)
 # assign home route
 @app.route("/")
 def index():
-    '''Homepage, test if app is working'''
+    '''Homepage endpoint to test whether app is working'''
     return render_template("index.html")
 
 
 @app.route("/data")
 def data():
-    '''Updates the db with fresher data from the summary API, then
-    retrieves json from db'''
-    data = jsonify(get_data())
-    return data
+    '''Visiting this endpoint updates the db with fresher data from the summary
+    API, then retrieves json from db and writes it to a json file'''
+    # creates a file called summary.json
+    writeFile = open('summary.json', 'w')
+    # writes to or replaces summary.json
+    writeFile.write(json.dumps(get_data()))
+    # closes the file
+    writeFile.close()
+    return make_response("COVID Summary API freshly pulled into DB and summary.json")
 
 
 @app.route("/bubbles")
 def bubbles():
-    '''Provides a brief covid tutorial and visual'''
+    '''Returns the bubble visual and a brief intro to a tutorial'''
     return render_template('bubbles.html')
 
 

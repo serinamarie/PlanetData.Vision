@@ -8,10 +8,20 @@
 <meta charset="utf-8">
 
 <!-- Load d3.js -->
-<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3.v5.js"></script>
 
 <!-- Color palette -->
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/d3-color.v1.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script>
+
+var yellow = d3.interpolateYlGn(0), // "rgb(255, 255, 229)"
+    yellowGreen = d3.interpolateYlGn(0.5), // "rgb(120, 197, 120)"
+    green = d3.interpolateYlGn(1); // "rgb(0, 69, 41)"
+
+</script>
 <div id="title-text">
 
           <h1>Biases in Bubbles:</h1>
@@ -29,7 +39,6 @@
 }
 </style>
 
-
 <script>
 
 // set the dimensions and margins of the graph
@@ -43,14 +52,14 @@ var svg = d3.select("#bubble")
     .attr("height", height)
 
 // Read data
-d3.csv("https://raw.githubusercontent.com/Lambda-School-Labs/earth-dashboard-ds/feature/flask_rc1/FLASK_RC1/static/merged.csv", function(data) {
+// d3.csv("https://raw.githubusercontent.com/Lambda-School-Labs/earth-dashboard-ds/feature/flask_rc1/FLASK_RC1/static/merged.csv", function(data) {
+  d3.json('static/summary.json').then(function(data) {
   // Filter a bit the data -> more than 1 confirmed case
   data = data.filter(function(d){ return d.TotalConfirmed>0 })
 
   // Color palette for continents?
   var color = d3.scaleOrdinal()
-    .domain(["Asia", "Europe", "Africa", "Oceania", "Americas"])
-    .range(d3.schemeSet1);
+    .range(d3.schemeTableau10);
 
   // Size scale for countries
   var size = d3.scaleLinear()
@@ -94,7 +103,7 @@ d3.csv("https://raw.githubusercontent.com/Lambda-School-Labs/earth-dashboard-ds/
       .attr("r", function(d){ return size(d.TotalConfirmed)})
       .attr("cx", width / 2)
       .attr("cy", height / 2)
-      .style("fill", function(d){ return color(d.region)})
+      .style("fill", function(d){ return color(d.Country)})
       .style("fill-opacity", 0.8)
       .attr("stroke", "black")
       .style("stroke-width", 1)
