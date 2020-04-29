@@ -54,6 +54,8 @@ var svg = d3.select("#bubble")
 // Read data
 // d3.csv("https://raw.githubusercontent.com/Lambda-School-Labs/earth-dashboard-ds/feature/flask_rc1/FLASK_RC1/static/merged.csv", function(data) {
   d3.json('static/summary.json').then(function(data) {
+      console.log(data);
+      document.getElementById("d3-write-here").innerHTML = data;
   // Filter a bit the data -> more than 1 confirmed case
   data = data.filter(function(d){ return d.TotalConfirmed>0 })
 
