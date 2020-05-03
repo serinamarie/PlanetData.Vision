@@ -25,12 +25,12 @@ def bubbles():
 
 
 @app.route("/bubbles/pull")
-def get_summary_data(ACCESS):
+def get_summary_data():
     '''Gets the data from the summary API for the bubbles visualization and
     inserts it into the database.'''
-
+    summary_data = "https://api.covid19api.com/summary"
     # Request the data
-    response = requests.get("https://api.covid19api.com/summary")
+    response = requests.get(summary_data)
     nested_dict = response.json()
     if not nested_dict:
         return {"message": "No input data provided"}, 400
