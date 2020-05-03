@@ -12,10 +12,9 @@ class Config:
     TESTING = environ.get('TESTING')
     DEBUG = environ.get('DEBUG')
     FLASK_APP = 'wsgi.py'
-    FLASK_DEBUG = 1
     SECRETKEY = environ.get('SECRETKEY')
 
     # Database
-    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://postgres:hf3Ap24Hlseruxh84j3rw89@database-earth.cftcdswr9dvc.us-east-2.rds.amazonaws.com/"
-    SQLALCHEMY_ECHO = True
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = environ.get('SQLALCHEMY_DATABASE_URI')
+    SQLALCHEMY_ECHO = environ.get('SQLALCHEMY_ECHO')
+    SQLALCHEMY_TRACK_MODIFICATIONS = environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')
