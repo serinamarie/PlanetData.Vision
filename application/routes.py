@@ -11,21 +11,19 @@ from datetime import datetime, timedelta
 from flask import current_app as app
 import json
 
-# HOME DONE final
+
 @app.route("/")
 def index():
     '''Homepage endpoint to test whether app is working'''
     return render_template("index.html")
 
 
-# SUMMARY/BUBBLES VIS DONE
 @app.route("/bubbles/visual")
 def bubbles():
     '''Returns the bubble visual and a brief intro to a tutorial'''
     return render_template('bubbles.html')
 
 
-# SUMMARY/BUBBLES PULL DONE
 @app.route("/bubbles/pull")
 def get_summary_data(ACCESS):
     '''Gets the data from the summary API for the bubbles visualization and
@@ -68,7 +66,6 @@ def get_summary_data(ACCESS):
     return f'DB is up-to-date with covid summary API as of {today}'
 
 
-# COUNTIES/USLIVE/HEATMAP PULL ROUTE 3500/day DONE
 @app.route("/heatmap/pull/<dayssincelastpulled>")
 def get_uscounties_data(dayssincelastpulled):
     '''
