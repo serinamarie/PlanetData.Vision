@@ -62,8 +62,8 @@ def get_summary_data():
     db.session.commit()
 
     # Return statement of verification
-    today = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
-    return f'DB is up-to-date with covid summary API as of {today}'
+    this_moment = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
+    return f'DB is up-to-date with covid summary API as of {this_moment}'
 
 
 @app.route("/heatmap/pull/<dayssincelastpulled>")
@@ -119,8 +119,8 @@ def get_uscounties_data(dayssincelastpulled):
     db.session.commit()
 
     # Return statement of verification
-    today = datetime.today().strftime('%Y-%m-%d')
-    return f'DB is up-to-date with covid summary API as of {today} and has incorporated data since {filter_after} days ago, rounded down'
+    this_moment = datetime.today().strftime('%Y-%m-%d')
+    return f'DB is up-to-date with covid summary API as of {this_moment} and has incorporated data since {filter_after} days ago, rounded down'
 
 
 # COUNTIES/COVIDALL/RACECHART PULL ROUTE
