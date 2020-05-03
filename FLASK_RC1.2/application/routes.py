@@ -1,4 +1,4 @@
-from .models import db, Summary, USCounties
+from .models import db, Summary, USCounties, CovidAll
 import requests
 from flask import Flask, render_template, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
@@ -120,13 +120,77 @@ def get_uscounties_data(dayssincelastpulled):
 
     # Return statement of verification
     this_moment = datetime.today().strftime('%Y-%m-%d')
-    return f'DB is up-to-date with covid summary API as of {this_moment} and has incorporated data since {filter_after} days ago, rounded down'
+    return f'DB is up-to-date with covid summary API as of {this_moment} and has incorporated data since {dayssincelastpulled} days ago, including today if records have been posted for today'
 
+
+@app.route("/heatmap/db")
+def grab_json():
+    '''Pulls existing data from the db and displays as json'''
+    json_output = USCounties.query.all()
+    return json_output
+    # return render_template('uscounties.html',
+    #                        data=USCounties.query.all(),
+    #                        title="Show Data")
 
 # COUNTIES/COVIDALL/RACECHART PULL ROUTE
-@app.route("/racechart/pull")
-def function():
-    return 'to finish this task on 5/3/20'
+@app.route("/racechart/pull/<dayssincelastpulled>")
+def get_covidall_data(dayssincelastpulled):
+    '''
+    Gets the data from the 'all' API for the char race visualization and
+    inserts it into the database.
+
+    Ex. of the 'dayssincelastpulled' parameter:
+    If today is 5/2 and the last data pulled was from 4/28, choose 4 for
+    dayssincelastpulled to add 5/2, 5/1, 4/30, and 4/29 to the database.
+
+    This method will eventually be replaced with AWS Lambda, thank God.
+
+    Meanwhile each date consists of 3500 records (350,000 records now and
+    counting), so pull gently.'''
+
+    # request the data
+    covid_all_data = "https://api.covid19api.com/all"
+    response = requests.get(covid_all_data)
+    record_list = response.json()
+    if not record_list:
+        return {"message": "No input data provided"}, 400
+
+    # Cast the 'days since last pulled' into a timestamp
+    filter_after = datetime.today() - timedelta(int(dayssincelastpulled))
+
+    for record in record_list:
+
+        # Cast the json str of the record date to a datetime
+        record['Date'] = datetime.strptime(record['Date'], '%Y-%m-%dT%H:%M:%SZ')
+
+        # Take in a json string and creates a new record for it
+        if record['Date'] >= filter_after:
+            new_record = CovidAll(
+                country=record['Country'],
+                countrycode=record['CountryCode'],
+                province=record['Province'],
+                city=record['City'],
+                citycode=record['CityCode'],
+                lat=record['Lat'],
+                lon=record['Lon'],
+                confirmed=record['Confirmed'],
+                deaths=record['Deaths'],
+                recovered=record['Recovered'],
+                active=record['Active'],
+                date=record['Date']
+            )
+
+            # Add record to database
+            db.session.add(new_record)
+        else:
+            pass
+
+    # Commit all records to database
+    db.session.commit()
+
+    # Return statement of verification
+    this_moment = datetime.today().strftime('%Y-%m-%d')
+    return f'DB is up-to-date with covid summary API as of {this_moment} and has incorporated data since {dayssincelastpulled} days ago, including today if records have been posted for today'
 
 
 if __name__ == "__main__":
