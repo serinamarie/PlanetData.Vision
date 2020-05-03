@@ -76,7 +76,7 @@ def get_uscounties_data(dayssincelastpulled):
     If today is 5/2 and the last data pulled was from 4/28, choose 4 for
     dayssincelastpulled to add 5/2, 5/1, 4/30, and 4/29 to the database.
 
-    This methods will eventually be replaced with AWS Lambda.'''
+    This method will eventually be replaced with AWS Lambda, thank God.'''
 
     # Request the data
     us_counties_data = "https://api.covid19api.com/country/us/status/confirmed/live"
@@ -117,7 +117,7 @@ def get_uscounties_data(dayssincelastpulled):
 
     # Return statement of verification
     today = datetime.today().strftime('%Y-%m-%d')
-    return f'DB is up-to-date with covid summary API as of {today} and has incorporated data since {filter_after}'
+    return f'DB is up-to-date with covid summary API as of {today} and has incorporated data since {filter_after} days ago, rounded down'
 
 
 # COUNTIES/COVIDALL/RACECHART PULL ROUTE
