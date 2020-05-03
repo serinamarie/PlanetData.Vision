@@ -2,6 +2,8 @@ from flask_sqlalchemy import SQLAlchemy
 from . import db
 
 # SUMMARY/BUBBLES CLASS
+
+
 class Summary(db.Model):
     '''Attributes of '/summary' API class'''
     __tablename__ = 'summary'
@@ -17,7 +19,9 @@ class Summary(db.Model):
     totalrecovered = db.Column(db.Integer)
     date = db.Column(db.DateTime)
 
-#COUNTIES/USLIVE/HEATMAP PULL ROUTE
+# COUNTIES/USLIVE/HEATMAP PULL ROUTE
+
+
 class USCounties(db.Model):
     '''Attributes of US counties API class'''
     __tablename__ = 'uscounties'
