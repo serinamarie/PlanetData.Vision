@@ -1,4 +1,4 @@
-from .models import db, Summary, USCounties, CovidAll
+from .models import *
 import requests
 from flask import Flask, render_template, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
@@ -18,14 +18,14 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/bubbles/visual")
+@app.route("/visual/bubbles")
 def bubbles():
     '''Returns the bubble visual and a brief intro to a tutorial'''
     return render_template('bubbles.html')
 
 
-@app.route("/bubbles/pull")
-def get_summary_data():
+@app.route("/pull/bubbles")
+def pull_summary_data():
     '''Gets the data from the summary API for the bubbles visualization and
     inserts it into the database.'''
     summary_data = "https://api.covid19api.com/summary"
@@ -66,8 +66,16 @@ def get_summary_data():
     return f'DB is up-to-date with covid summary API as of {this_moment}'
 
 
-@app.route("/heatmap/pull/<dayssincelastpulled>")
-def get_uscounties_data(dayssincelastpulled):
+@app.route("/db/bubbles")
+def get_summary_data():
+    '''Pulls existing data from the db and displays as json'''
+    all_records = Summary.query.all()
+    result = summary_schema.dump(all_records)
+    return jsonify(result)
+
+
+@app.route("/pull/heatmap/<dayssincelastpulled>")
+def pull_uscounties_data(dayssincelastpulled):
     '''
     Gets the data from the us counties API for the heatmap visualization and
     inserts it into the database.
@@ -123,18 +131,17 @@ def get_uscounties_data(dayssincelastpulled):
     return f'DB is up-to-date with covid summary API as of {this_moment} and has incorporated data since {dayssincelastpulled} days ago, including today if records have been posted for today'
 
 
-@app.route("/heatmap/db")
-def grab_json():
+@app.route("/db/heatmap")
+def get_uscounties_data():
     '''Pulls existing data from the db and displays as json'''
-    json_output = USCounties.query.all()
-    return json_output
-    # return render_template('uscounties.html',
-    #                        data=USCounties.query.all(),
-    #                        title="Show Data")
+    all_records = USCounties.query.all()
+    result = us_counties_schema.dump(all_records)
+    return jsonify(result)
+
 
 # COUNTIES/COVIDALL/RACECHART PULL ROUTE
-@app.route("/racechart/pull/<dayssincelastpulled>")
-def get_covidall_data(dayssincelastpulled):
+@app.route("/pull/racechart/<dayssincelastpulled>")
+def pull_covidall_data(dayssincelastpulled):
     '''
     Gets the data from the 'all' API for the char race visualization and
     inserts it into the database.
@@ -191,6 +198,14 @@ def get_covidall_data(dayssincelastpulled):
     # Return statement of verification
     this_moment = datetime.today().strftime('%Y-%m-%d')
     return f'DB is up-to-date with covid summary API as of {this_moment} and has incorporated data since {dayssincelastpulled} days ago, including today if records have been posted for today'
+
+
+@app.route("/db/racechart")
+def get_covidall_data():
+    '''Pulls existing data from the db and displays as json'''
+    all_records = CovidAll.query.all()
+    result = covidall_schema.dump(all_records)
+    return jsonify(result)
 
 
 if __name__ == "__main__":

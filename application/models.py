@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from . import db
+from . import db, ma
 
 # SUMMARY/BUBBLES CLASS
 
@@ -19,6 +19,14 @@ class Summary(db.Model):
     totalrecovered = db.Column(db.Integer)
     date = db.Column(db.DateTime)
 
+
+class SummarySchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Summary
+
+
+summary_schema = SummarySchema(many=True)
+
 # COUNTIES/USLIVESTATUS/HEATMAP CLASS
 
 
@@ -37,6 +45,14 @@ class USCounties(db.Model):
     cases = db.Column(db.Integer)
     status = db.Column(db.String(200))
     date = db.Column(db.DateTime(200))
+
+
+class USCountiesSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = USCounties
+
+
+us_counties_schema = USCountiesSchema(many=True)
 
 # COVID ALL/RACE CHART CLASS
 
@@ -58,3 +74,11 @@ class CovidAll(db.Model):
     recovered = db.Column(db.Integer)
     active = db.Column(db.Integer)
     date = db.Column(db.DateTime)
+
+
+class CovidAllSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = CovidAll
+
+
+covidall_schema = CovidAllSchema(many=True)
