@@ -1,6 +1,4 @@
-# python -m application.test
-
-import unittest
+# run tests: python -m application.test
 from flask_testing import TestCase
 
 try:
@@ -11,16 +9,18 @@ except Exception as e:
 
 
 class BubbleTest(unittest.TestCase):
-    # Check for response 200
+    '''Testing the summary table used for the bubbles visualization'''
+
     def test_index(self):
+        # Check for response 200
         app = create_app()
         tester = app.test_client(self)
         response = tester.get("/db/bubbles")
         statuscode = response.status_code
         self.assertEqual(statuscode, 200)
 
-    # Check if content return is application/json
     def test_index_content(self):
+        # Check if content return is application/json
         app = create_app()
         tester = app.test_client(self)
         response = tester.get("/db/bubbles")
@@ -28,8 +28,10 @@ class BubbleTest(unittest.TestCase):
 
 
 class HeatmapTest(unittest.TestCase):
-    # Check if content return is application/json
+    '''Testing the uscounties table used for the heatmap visualization'''
+
     def test_index_content(self):
+        # Check if content return is application/json
         app = create_app()
         tester = app.test_client(self)
         response = tester.get("/db/heatmap")
@@ -37,8 +39,10 @@ class HeatmapTest(unittest.TestCase):
 
 
 class RacechartTest(unittest.TestCase):
-    # Check if content return is application/json
+    '''Testing the covidall table used for the racechart visualization'''
+
     def test_index_content(self):
+        # Check if content return is application/json
         app = create_app()
         tester = app.test_client(self)
         response = tester.get("/db/racechart")
