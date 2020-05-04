@@ -65,7 +65,7 @@ class SummaryPull(Resource):
                 # Commit changes
                 db.session.commit()
 
-                # Return statement of verification
+        # Return statement of verification
         this_moment = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
         return f'DB is up-to-date with covid summary API as of {this_moment}'
 
@@ -136,7 +136,6 @@ class USCountiesDB(Resource):
         return jsonify(result)
 
 
-# COUNTIES/COVIDALL/RACECHART PULL ROUTE
 @ns_conf.route("/covidall/<days>")
 class CovidAllPull(Resource):
     def post(self, days):
@@ -153,7 +152,7 @@ class CovidAllPull(Resource):
         Meanwhile each date consists of 3500 records (350,000 records now and
         counting), so pull gently.'''
 
-        # request the data
+        # Request the data
         covid_all_data = "https://api.covid19api.com/all"
         response = requests.get(covid_all_data)
         record_list = response.json()
