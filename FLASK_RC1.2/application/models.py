@@ -21,10 +21,14 @@ class Summary(db.Model):
 
 
 class SummarySchema(ma.SQLAlchemyAutoSchema):
+    '''
+    Creating a Marshmallow schema for the Summary class to easily query the
+    summary table in the Postgres database'''
     class Meta:
         model = Summary
 
 
+# Set to many to allow filtering multiple queries
 summary_schema = SummarySchema(many=True)
 
 # COUNTIES/USLIVESTATUS/HEATMAP CLASS
@@ -48,10 +52,14 @@ class USCounties(db.Model):
 
 
 class USCountiesSchema(ma.SQLAlchemyAutoSchema):
+    '''
+    Creating a Marshmallow schema for the USCounties class to easily query the
+    uscounties table in the Postgres database'''
     class Meta:
         model = USCounties
 
 
+# Set to many to allow filtering multiple queries
 us_counties_schema = USCountiesSchema(many=True)
 
 # COVID ALL/RACE CHART CLASS
@@ -77,8 +85,12 @@ class CovidAll(db.Model):
 
 
 class CovidAllSchema(ma.SQLAlchemyAutoSchema):
+    '''
+    Creating a Marshmallow schema for the CovidAll class to easily query the
+    covidall table in the Postgres database'''
     class Meta:
         model = CovidAll
 
 
+# Set to many to allow filtering multiple queries
 covidall_schema = CovidAllSchema(many=True)
