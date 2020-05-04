@@ -1,14 +1,10 @@
 from .models import *
 import requests
-from flask import Flask, render_template, jsonify, make_response
+from flask import Flask, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
-import os
-from dotenv import load_dotenv
-import psycopg2
-import requests
-from sqlalchemy.orm.exc import NoResultFound
-from datetime import datetime, timedelta
 from flask import current_app as app
+import requests
+from datetime import datetime, timedelta
 import json
 
 
