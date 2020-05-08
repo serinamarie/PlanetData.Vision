@@ -7,7 +7,7 @@ from . import db, ma
 class Summary(db.Model):
     '''Attributes of '/summary' API class'''
     __tablename__ = 'summary'
-    __table_args__ = {'extend_existing': True}
+    # __table_args__ = {'extend_existing': True}
     slug = db.Column(db.String(100), primary_key=True)
     country = db.Column(db.String(100), unique=True)
     countrycode = db.Column(db.String(100), unique=True)
