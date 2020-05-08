@@ -36,34 +36,31 @@ class SummaryPull(Resource):
         # Request the data
         response = requests.get(summary_data)
         nested_dict = response.json()
-        if not nested_dict:
-            return {"message": "No input data provided"}, 400
 
-            # Just get country data
-            record_list = nested_dict['Countries']
+        # Just get country data
+        record_list = nested_dict['Countries']
 
-            for record in record_list:
+        for record in record_list:
 
-                # Get existing record from the db
-                db_record = Summary.query.filter_by(slug=record['Slug']).first()
+            # Get existing record from the db
+            # db_record = Summary.query.filter_by(slug=record['Slug']).first()
+            db_record = Summary.query.get(record['Slug']) or Summary(slug=record['Slug'])
+            # Update all records
+            db_record.country = record['Country']
+            db_record.countrycode = record['CountryCode']
+            db_record.newconfirmed = record['NewConfirmed']
+            db_record.totalconfirmed = record['TotalConfirmed']
+            db_record.newdeaths = record['NewDeaths']
+            db_record.totaldeaths = record['TotalDeaths']
+            db_record.newrecovered = record['NewRecovered']
+            db_record.totalrecovered = record['TotalRecovered']
+            db_record.date = record['Date']
 
-                # Update all records
-                db_record.country = record['Country']
-                db_record.countrycode = record['CountryCode']
-                db_record.slug = record['Slug']
-                db_record.newconfirmed = record['NewConfirmed']
-                db_record.totalconfirmed = record['TotalConfirmed']
-                db_record.newdeaths = record['NewDeaths']
-                db_record.totaldeaths = record['TotalDeaths']
-                db_record.newrecovered = record['NewRecovered']
-                db_record.totalrecovered = record['TotalRecovered']
-                db_record.date = record['Date']
+            # Add the record to the session
+            db.session.add(db_record)
 
-                # Add the record to the session
-                db.session.add(db_record)
-
-                # Commit changes
-                db.session.commit()
+        # Commit changes
+        db.session.commit()
 
         # Return statement of verification
         this_moment = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
