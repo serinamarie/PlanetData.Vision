@@ -10,7 +10,6 @@ jobs:
   # A job to generate and publish code coverage
   coverage:
     name: Test and publish test coverage
-
     # The OS on which the job will run
     runs-on: ubuntu-latest
 
@@ -19,6 +18,19 @@ jobs:
 
       # A GitHub action for checking out the current branch
       - uses: actions/checkout@master
+      
+      - name: Set up Python
+        uses: actions/setup-python@master
+        with: 
+          pythoin-version: 3.8
+      
+      - name: Run unit tests
+        run: 
+          pip install pytest
+          pytest
+          
+        
+      
 
       # A GitHub action to setup Node.js
       #- uses: actions/setup-node@master
