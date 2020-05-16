@@ -153,8 +153,6 @@ class CovidAllPull(Resource):
         covid_all_data = "https://api.covid19api.com/all"
         response = requests.get(covid_all_data)
         record_list = response.json()
-        if not record_list:
-            return {"message": "No input data provided"}, 400
 
         # Cast the 'days since last pulled' into a timestamp
         filter_after = datetime.today() - timedelta(int(days))
