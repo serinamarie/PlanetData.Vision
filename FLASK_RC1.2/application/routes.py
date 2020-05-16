@@ -7,6 +7,7 @@ from flask_restplus import Api, Resource
 import requests
 from datetime import datetime, timedelta
 import json
+from math import ceil
 
 api = Api(app)
 ns_conf = api.namespace(
@@ -23,15 +24,19 @@ class BubbleVisual(Resource):
 
 @ns_conf.route("/summary")
 class SummaryPull(Resource):
-    def get(self):
-        '''Returns all existing data from the 'summary' table in the database'''
+    def post(self):
+        '''Returns all existing data from the 'summary_be' table in the
+        database, filters it, and inserts it into summary_fe. This endpoint
+        should be triggered by new data entering the summary_be table'''
         all_records = Summary.query.all()
+        # Replace SQLAlchemy with basic SQL magic
         result = summary_schema.dump(all_records)
         return jsonify(result)
 
-    def post(self):
-        '''Gets data from the summary API for the bubbles visualization and
-        inserts it into the database.'''
+    def get(self):
+        '''
+        Pulls data from covid/summary API into database.
+        Uses API Gateway, AWS Lambda and CloudWatch to run once a day'''
         summary_data = "https://api.covid19api.com/summary"
         # Request the data
         response = requests.get(summary_data)
@@ -43,19 +48,10 @@ class SummaryPull(Resource):
         for record in record_list:
 
             # Get existing record from the db
-            # db_record = Summary.query.filter_by(slug=record['Slug']).first()
-            db_record = Summary.query.get(record['Slug']) or Summary(slug=record['Slug'])
+            db_record = Summary.query.get(record['Country']) or Summary(country=record['Country'])
             # Update all records
-            db_record.country = record['Country']
-            db_record.countrycode = record['CountryCode']
-            db_record.newconfirmed = record['NewConfirmed']
             db_record.totalconfirmed = record['TotalConfirmed']
-            db_record.newdeaths = record['NewDeaths']
-            db_record.totaldeaths = record['TotalDeaths']
-            db_record.newrecovered = record['NewRecovered']
-            db_record.totalrecovered = record['TotalRecovered']
             db_record.date = record['Date']
-
             # Add the record to the session
             db.session.add(db_record)
 
@@ -63,34 +59,23 @@ class SummaryPull(Resource):
         db.session.commit()
 
         # Return statement of verification
-        this_moment = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
-        return f'DB is up-to-date with covid summary API as of {this_moment}'
+        return 'status: 200'
 
 
-@ns_conf.route("/uscounties/<days>")
+@ns_conf.route("/uscounties")
 class USCountiesPull(Resource):
-    def post(self, days):
+    def get(self, days):
         '''
-        Pulls data from web API into database.
-
-        CAUTION: DO NOT PULL WITHOUT DISCUSSION
-        Ex. of the 'days' parameter:
-        If today is 5/2 and the last data pulled was from 4/28, choose 4 for
-        days to add 5/2, 5/1, 4/30, and 4/29 to the database.
-
-        This method will eventually be replaced with AWS Lambda, thank God.
-        Meanwhile each date consists of 3500 records (350,000 records now and
-        counting), so pull gently.'''
+        Pulls data from covid/live API into database.
+        Will use API Gateway, AWS Lambda and CloudWatch to run each day'''
 
         # Request the data
         us_counties_data = "https://api.covid19api.com/country/us/status/confirmed/live"
         response = requests.get(us_counties_data)
         record_list = response.json()
-        if not record_list:
-            return {"message": "No input data provided"}, 400
 
-            # Cast the 'days since last pulled' into a timestamp
-            filter_after = datetime.today() - timedelta(int(days))
+        # Get new data (from today)
+        todays_data = datetime.now().date()
 
         for record in record_list:
 
@@ -98,7 +83,7 @@ class USCountiesPull(Resource):
             record['Date'] = datetime.strptime(record['Date'], '%Y-%m-%dT%H:%M:%SZ')
 
             # Take in a json string and creates a new record for it
-            if record['Date'] >= filter_after:
+            if record['Date'] == todays_data:
                 new_record = USCounties(
                     country=record['Country'],
                     countrycode=record['CountryCode'],
@@ -120,50 +105,40 @@ class USCountiesPull(Resource):
         db.session.commit()
 
         # Return statement of verification
-        this_moment = datetime.today().strftime('%Y-%m-%d')
-        return f'DB is up-to-date with covid summary API as of {this_moment} and has incorporated data since {days} days ago, including today if records have been posted for today'
+        return f'DB is up-to-date with covid all API as of {todays_data}'
 
-
-@ns_conf.route("/uscounties")
-class USCountiesDB(Resource):
     def get(self):
-        '''Returns all existing data from the 'uscounties' table in the database'''
+        '''Returns all existing data from the 'uscounties_be' table in the
+        database, filters it, and inserts it into uscounties_fe. This endpoint
+        should be triggered by new data entering the uscounties_be table'''
         all_records = USCounties.query.all()
+        # Replace SQLAlchemy with basic SQL magic
         result = us_counties_schema.dump(all_records)
         return jsonify(result)
 
 
-@ns_conf.route("/covidall/<days>")
+@ns_conf.route("/covidall")
 class CovidAllPull(Resource):
-    def post(self, days):
+    def get(self, days):
         '''
-        Pulls data from web API into database.
-
-        CAUTION: DO NOT PULL WITHOUT DISCUSSION
-        Ex. of the 'days' parameter:
-        If today is 5/2 and the last data pulled was from 4/28, choose 4 for
-        days to add 5/2, 5/1, 4/30, and 4/29 to the database.
-
-        This method will eventually be replaced with AWS Lambda, thank God.
-
-        Meanwhile each date consists of 3500 records (350,000 records now and
-        counting), so pull gently.'''
+        Pulls data from covid/all API into database.
+        Will use API Gateway, AWS Lambda and CloudWatch to run each day'''
 
         # Request the data
         covid_all_data = "https://api.covid19api.com/all"
         response = requests.get(covid_all_data)
         record_list = response.json()
 
-        # Cast the 'days since last pulled' into a timestamp
-        filter_after = datetime.today() - timedelta(int(days))
+        # Get new data (from today)
+        todays_data = datetime.now().date()
 
         for record in record_list:
 
-            # Cast the json str of the record date to a datetime
+            # Cast the json str of the record date to a datetime to compare to today's date
             record['Date'] = datetime.strptime(record['Date'], '%Y-%m-%dT%H:%M:%SZ')
 
             # Take in a json string and creates a new record for it
-            if record['Date'] >= filter_after:
+            if record['Date'] == todays_data:
                 new_record = CovidAll(
                     country=record['Country'],
                     countrycode=record['CountryCode'],
@@ -188,15 +163,14 @@ class CovidAllPull(Resource):
         db.session.commit()
 
         # Return statement of verification
-        this_moment = datetime.today().strftime('%Y-%m-%d')
-        return f'DB is up-to-date with covid summary API as of {this_moment} and has incorporated data since {days} days ago, including today if records have been posted for today'
+        return f'DB is up-to-date with covid all API as of {todays_data}'
 
-
-@ns_conf.route("/covidall")
-class CovidAllDB(Resource):
-    def get(self):
-        '''Returns all existing data from the 'covidall' table in the database'''
+    def post(self):
+        '''Returns all existing data from the 'covidall_be' table in the
+        database, filters it, and inserts it into to covidall_fe. This endpoint
+        should be triggered by new data entering the covidall_be table'''
         all_records = CovidAll.query.all()
+        # Replace SQLAlchemy with basic SQL magic
         result = covidall_schema.dump(all_records)
         return jsonify(result)
 
