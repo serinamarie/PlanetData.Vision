@@ -25,9 +25,10 @@ class BubbleVisual(Resource):
 @ns_conf.route("/summary")
 class SummaryPull(Resource):
     def post(self):
-        '''Returns all existing data from the 'summary_be' table in the
-        database, filters it, and inserts it into summary_fe. This endpoint
-        should be triggered by new data entering the summary_be table'''
+        '''Packaged as an AWS Lambda function. Will be repackaged 5/16/2020.
+        Returns all existing data from the 'summary' table in the database,
+        filters it. This endpoint should be triggered by new data entering the
+        'summary' table'''
         all_records = Summary.query.all()
         # Replace SQLAlchemy with basic SQL magic
         result = summary_schema.dump(all_records)
@@ -36,7 +37,9 @@ class SummaryPull(Resource):
     def get(self):
         '''
         Pulls data from covid/summary API into database.
-        Uses API Gateway, AWS Lambda and CloudWatch to run once a day'''
+
+        Packaged as an AWS Lambda function. Accessible through API Gateway and
+        uses CloudWatch to run once a day'''
         summary_data = "https://api.covid19api.com/summary"
         # Request the data
         response = requests.get(summary_data)
@@ -67,7 +70,8 @@ class USCountiesPull(Resource):
     def get(self, days):
         '''
         Pulls data from covid/live API into database.
-        Will use API Gateway, AWS Lambda and CloudWatch to run each day'''
+        Destined to be a mere Heroku endpoint called through AWS Lambda and
+        using CloudWatch to run each day'''
 
         # Request the data
         us_counties_data = "https://api.covid19api.com/country/us/status/confirmed/live"
@@ -108,9 +112,9 @@ class USCountiesPull(Resource):
         return f'DB is up-to-date with covid all API as of {todays_data}'
 
     def get(self):
-        '''Returns all existing data from the 'uscounties_be' table in the
-        database, filters it, and inserts it into uscounties_fe. This endpoint
-        should be triggered by new data entering the uscounties_be table'''
+        '''Returns all existing data from the 'uscounties' table in the
+        database and filters it. This endpoint should be triggered by new data
+        entering the 'uscounties' table'''
         all_records = USCounties.query.all()
         # Replace SQLAlchemy with basic SQL magic
         result = us_counties_schema.dump(all_records)
@@ -166,9 +170,9 @@ class CovidAllPull(Resource):
         return f'DB is up-to-date with covid all API as of {todays_data}'
 
     def post(self):
-        '''Returns all existing data from the 'covidall_be' table in the
-        database, filters it, and inserts it into to covidall_fe. This endpoint
-        should be triggered by new data entering the covidall_be table'''
+        '''Returns all existing data from the 'covidall' table in the database
+        and filters it. This endpoint should be triggered by new data entering
+        the 'covidall' table'''
         all_records = CovidAll.query.all()
         # Replace SQLAlchemy with basic SQL magic
         result = covidall_schema.dump(all_records)
