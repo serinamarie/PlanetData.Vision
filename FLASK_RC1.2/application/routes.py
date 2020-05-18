@@ -7,93 +7,82 @@ from flask_restplus import Api, Resource
 import requests
 from datetime import datetime, timedelta
 import json
+from math import ceil
+import psycopg2
+from sqlalchemy import text
+
 
 api = Api(app)
 ns_conf = api.namespace(
     'covid',
-    description='Operations pertaining to the covid topic')
+    description='Operations pertaining to the covid topic. None of these endpoints need to be visited as they are accessed only by AWS Lambda functions, or already exist as Lambda functions themselves. The ones that already exist as Lambda functions will eventually be deleted as they are superfluous.')
 
 
 @ns_conf.route("/visual/summary")
 class BubbleVisual(Resource):
     def get(self):
-        '''Returns the D3 bubble visualization (best visited directly)'''
+        '''Returns the D3 bubble visualization (best visited directly)
+        through planetdata.world'''
         return render_template('bubbles.html')
 
 
 @ns_conf.route("/summary")
 class SummaryPull(Resource):
     def get(self):
-        '''Returns all existing data from the 'summary' table in the database'''
-        all_records = Summary.query.all()
-        result = summary_schema.dump(all_records)
-        return jsonify(result)
-
-    def post(self):
-        '''Gets data from the summary API for the bubbles visualization and
-        inserts it into the database.'''
+        '''
+        REPLACED: This endpoint pulls data from covid/summary API into database.
+        Packaged as an AWS Lambda function. Accessible through API Gateway and
+        uses CloudWatch to run once a day'''
         summary_data = "https://api.covid19api.com/summary"
         # Request the data
         response = requests.get(summary_data)
         nested_dict = response.json()
-        if not nested_dict:
-            return {"message": "No input data provided"}, 400
 
-            # Just get country data
-            record_list = nested_dict['Countries']
+        # Just get country data
+        record_list = nested_dict['Countries']
 
-            for record in record_list:
+        for record in record_list:
 
-                # Get existing record from the db
-                db_record = Summary.query.filter_by(slug=record['Slug']).first()
+            # Get existing record from the db
+            db_record = Summary.query.get(record['Country']) or Summary(country=record['Country'])
+            # Update all records
+            db_record.totalconfirmed = record['TotalConfirmed']
+            db_record.date = record['Date']
+            # Add the record to the session
+            db.session.add(db_record)
 
-                # Update all records
-                db_record.country = record['Country']
-                db_record.countrycode = record['CountryCode']
-                db_record.slug = record['Slug']
-                db_record.newconfirmed = record['NewConfirmed']
-                db_record.totalconfirmed = record['TotalConfirmed']
-                db_record.newdeaths = record['NewDeaths']
-                db_record.totaldeaths = record['TotalDeaths']
-                db_record.newrecovered = record['NewRecovered']
-                db_record.totalrecovered = record['TotalRecovered']
-                db_record.date = record['Date']
-
-                # Add the record to the session
-                db.session.add(db_record)
-
-                # Commit changes
-                db.session.commit()
+        # Commit changes
+        db.session.commit()
 
         # Return statement of verification
-        this_moment = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
-        return f'DB is up-to-date with covid summary API as of {this_moment}'
+        return 'status: 200'
+
+    def post(self):
+        '''REPLACED: This endpoint will filter and return all existing data from
+        the 'summary' table in the database. It is no longer necessary as the
+        AWS API Gateway endpoint does the same thing.'''
+        all_records = Summary.query.all()
+        # Replace SQLAlchemy with basic SQL magic
+        result = summary_schema.dump(all_records)
+        return jsonify(result)
 
 
-@ns_conf.route("/uscounties/<days>")
+@ns_conf.route("/uscounties")
 class USCountiesPull(Resource):
-    def post(self, days):
+    def get(self, days):
         '''
-        Pulls data from web API into database.
-
-        CAUTION: DO NOT PULL WITHOUT DISCUSSION
-        Ex. of the 'days' parameter:
-        If today is 5/2 and the last data pulled was from 4/28, choose 4 for
-        days to add 5/2, 5/1, 4/30, and 4/29 to the database.
-
-        This method will eventually be replaced with AWS Lambda, thank God.
-        Meanwhile each date consists of 3500 records (350,000 records now and
-        counting), so pull gently.'''
+        A Heroku endpoint existing to be triggered by an AWS Lambda function
+        each day via CloudWatch. There should never be a need to visit this
+        endpoint yourself as it is automated to parse new data from the
+        covid/live API into the AWS RDS PostgreSQL.'''
 
         # Request the data
         us_counties_data = "https://api.covid19api.com/country/us/status/confirmed/live"
         response = requests.get(us_counties_data)
         record_list = response.json()
-        if not record_list:
-            return {"message": "No input data provided"}, 400
 
-            # Cast the 'days since last pulled' into a timestamp
-            filter_after = datetime.today() - timedelta(int(days))
+        # Get new data (from today)
+        todays_data = datetime.now().date()
 
         for record in record_list:
 
@@ -101,7 +90,7 @@ class USCountiesPull(Resource):
             record['Date'] = datetime.strptime(record['Date'], '%Y-%m-%dT%H:%M:%SZ')
 
             # Take in a json string and creates a new record for it
-            if record['Date'] >= filter_after:
+            if record['Date'] == todays_data:
                 new_record = USCounties(
                     country=record['Country'],
                     countrycode=record['CountryCode'],
@@ -123,52 +112,62 @@ class USCountiesPull(Resource):
         db.session.commit()
 
         # Return statement of verification
-        this_moment = datetime.today().strftime('%Y-%m-%d')
-        return f'DB is up-to-date with covid summary API as of {this_moment} and has incorporated data since {days} days ago, including today if records have been posted for today'
+        return f'DB is up-to-date with covid all API as of {todays_data}'
+
+    def post(self):
+        '''Returns filtered data from the 'uscounties' table.'''
+
+        query = '''SELECT lat, lon, cases::int, to_char(date, 'MM-dd-yy')
+        AS date FROM uscounties
+        WHERE EXISTS (SELECT lat, lon, cases, date WHERE cases > 0)
+        ORDER BY date ASC'''
+
+        rows_1 = db.engine.execute(query)
+
+        # Create a dictionary of all cases
+        cases_dict = [{"lat": row[0], "lon": row[1], "cases": row[2], "date": row[3]}
+                      for row in rows_1]
+
+        rows_2 = db.engine.execute(query)
+
+        # Create a list of all dates in records
+        date_list = []
+        for row in rows_2:
+            date_list.append(row[3])
+
+        # Concatenate the two objects into a dictionary
+        records_dict = {
+            'cases': cases_dict,
+            # Unique, ordered dates only
+            'dates': sorted(set(date_list))}
+        return records_dict
 
 
-@ns_conf.route("/uscounties")
-class USCountiesDB(Resource):
-    def get(self):
-        '''Returns all existing data from the 'uscounties' table in the database'''
-        all_records = USCounties.query.all()
-        result = us_counties_schema.dump(all_records)
-        return jsonify(result)
-
-
-@ns_conf.route("/covidall/<days>")
+@ns_conf.route("/covidall")
 class CovidAllPull(Resource):
-    def post(self, days):
+    def get(self, days):
         '''
-        Pulls data from web API into database.
+        A Heroku endpoint existing to be triggered by an AWS Lambda function
+        each day via CloudWatch. There should never be a need to visit this
+        endpoint yourself as it is automated to parse new data from the
+        covid/all API into the AWS RDS PostgreSQL.'''
 
-        CAUTION: DO NOT PULL WITHOUT DISCUSSION
-        Ex. of the 'days' parameter:
-        If today is 5/2 and the last data pulled was from 4/28, choose 4 for
-        days to add 5/2, 5/1, 4/30, and 4/29 to the database.
-
-        This method will eventually be replaced with AWS Lambda, thank God.
-
-        Meanwhile each date consists of 3500 records (350,000 records now and
-        counting), so pull gently.'''
-
-        # Request the data
+        # Request the data from external API
         covid_all_data = "https://api.covid19api.com/all"
         response = requests.get(covid_all_data)
         record_list = response.json()
-        if not record_list:
-            return {"message": "No input data provided"}, 400
 
-        # Cast the 'days since last pulled' into a timestamp
-        filter_after = datetime.today() - timedelta(int(days))
+        # Get new data (from today)
+        todays_date = datetime.now().date()
 
         for record in record_list:
 
-            # Cast the json str of the record date to a datetime
+            # todays_date and record['date'] must have same format
             record['Date'] = datetime.strptime(record['Date'], '%Y-%m-%dT%H:%M:%SZ')
 
-            # Take in a json string and creates a new record for it
-            if record['Date'] >= filter_after:
+            if record['Date'] == todays_date:
+
+                # Take in a json string and creates a new record for it
                 new_record = CovidAll(
                     country=record['Country'],
                     countrycode=record['CountryCode'],
@@ -193,17 +192,36 @@ class CovidAllPull(Resource):
         db.session.commit()
 
         # Return statement of verification
-        this_moment = datetime.today().strftime('%Y-%m-%d')
-        return f'DB is up-to-date with covid summary API as of {this_moment} and has incorporated data since {days} days ago, including today if records have been posted for today'
+        return f'DB is up-to-date with covid all API as of {todays_date}'
 
+    def post(self):
+        '''REPLACED: This endpoint will filter and return all existing data from
+        the 'covidall' table in the database. It is no longer necessary as the
+        AWS API Gateway endpoint does the same thing.'''
 
-@ns_conf.route("/covidall")
-class CovidAllDB(Resource):
-    def get(self):
-        '''Returns all existing data from the 'covidall' table in the database'''
-        all_records = CovidAll.query.all()
-        result = covidall_schema.dump(all_records)
-        return jsonify(result)
+        query = '''
+        SELECT ranked_countries.country,
+        to_char(ranked_countries.date, 'MM-dd-yy'),
+        sum(ranked_countries.deaths) AS deaths
+        FROM (
+        SELECT covidall.country, covidall.date, covidall.deaths, rank()
+        OVER (PARTITION BY covidall.date ORDER BY covidall.deaths DESC)
+        FROM covidall WHERE province = '' OR country = 'China') ranked_countries
+        WHERE rank <=20 AND deaths > 0
+        GROUP BY ranked_countries.date, ranked_countries.country
+        ORDER BY ranked_countries.date'''
+
+        rows = db.engine.execute(query)
+
+        # Just post data necessary for the visualization
+        covidall_dict = [
+            {
+                "country": row[0],
+                "date": datetime.strptime(row[1], '%m-%d-%y').strftime('%Y/%m/%d'),
+                "deaths": row[2]
+            } for row in rows
+        ]
+        return covidall_dict
 
 
 if __name__ == "__main__":

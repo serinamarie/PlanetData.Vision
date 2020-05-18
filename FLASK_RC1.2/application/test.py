@@ -1,4 +1,5 @@
 # run tests: python -m application.test
+# These are test-tests; this area needs work
 from flask_testing import TestCase
 
 try:
