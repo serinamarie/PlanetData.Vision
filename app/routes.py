@@ -221,6 +221,7 @@ class CovidAllPull(Resource):
                 "deaths": row[2]
             } for row in rows
         ]
+        print type(covidall_dict)
         return covidall_dict
 
 
