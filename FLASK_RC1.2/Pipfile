@@ -21,6 +21,7 @@ MarkupSafe = "==1.1.1"
 Werkzeug = "==0.16.1"
 Flask-SQLAlchemy = "==2.4.1"
 Flask-Testing = "==0.8.0"
+marshmallow-sqlalchemy = "*"
 
 [requires]
 python_version = "3.7"
