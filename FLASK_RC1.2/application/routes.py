@@ -195,10 +195,30 @@ class CovidAllPull(Resource):
         '''Returns all existing data from the 'covidall' table in the database
         and filters it. This endpoint should be triggered by new data entering
         the 'covidall' table'''
-        all_records = CovidAll.query.all()
-        # Replace SQLAlchemy with basic SQL magic
-        result = covidall_schema.dump(all_records)
-        return jsonify(result)
+
+        query = '''
+        SELECT ranked_countries.country,
+        to_char(ranked_countries.date, 'MM-dd-yy'),
+        sum(ranked_countries.deaths) AS deaths
+        FROM (
+        SELECT covidall.country, covidall.date, covidall.deaths, rank()
+        OVER (PARTITION BY covidall.date ORDER BY covidall.deaths DESC)
+        FROM covidall WHERE province = '' OR country = 'China') ranked_countries
+        WHERE rank <=20 AND deaths > 0
+        GROUP BY ranked_countries.date, ranked_countries.country
+        ORDER BY ranked_countries.date'''
+
+        rows = db.engine.execute(query)
+        # Create a list of all dates in records
+
+        covidall_dict = [
+            {
+                "country": row[0],
+                "date": datetime.strptime(row[1], '%m-%d-%y').strftime('%Y/%m/%d'),
+                "deaths": row[2]
+            } for row in rows
+        ]
+        return covidall_dict
 
 
 if __name__ == "__main__":
