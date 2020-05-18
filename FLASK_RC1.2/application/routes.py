@@ -140,7 +140,7 @@ class USCountiesPull(Resource):
             'cases': cases_dict,
             # Unique, ordered dates only
             'dates': sorted(set(date_list))}
-        return records_dict
+        return jsonify(records_dict)
 
 
 @ns_conf.route("/covidall")
@@ -221,8 +221,7 @@ class CovidAllPull(Resource):
                 "deaths": row[2]
             } for row in rows
         ]
-        print type(covidall_dict)
-        return covidall_dict
+        return jsonify(covidall_dict)
 
 
 if __name__ == "__main__":
