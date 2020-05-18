@@ -8,6 +8,9 @@ import requests
 from datetime import datetime, timedelta
 import json
 from math import ceil
+import psycopg2
+from sqlalchemy import text
+
 
 api = Api(app)
 ns_conf = api.namespace(
@@ -111,14 +114,33 @@ class USCountiesPull(Resource):
         # Return statement of verification
         return f'DB is up-to-date with covid all API as of {todays_data}'
 
-    def get(self):
-        '''Returns all existing data from the 'uscounties' table in the
-        database and filters it. This endpoint should be triggered by new data
-        entering the 'uscounties' table'''
-        all_records = USCounties.query.all()
-        # Replace SQLAlchemy with basic SQL magic
-        result = us_counties_schema.dump(all_records)
-        return jsonify(result)
+    def post(self):
+        '''Returns filtered data from the 'uscounties' table.'''
+
+        query = '''SELECT lat, lon, cases::int, to_char(date, 'MM-dd-yy')
+        AS date FROM uscounties
+        WHERE EXISTS (SELECT lat, lon, cases, date WHERE cases > 0)
+        ORDER BY date ASC'''
+
+        rows_1 = db.engine.execute(query)
+
+        # Create a dictionary of all cases
+        cases_dict = [{"lat": row[0], "lon": row[1], "cases": row[2], "date": row[3]}
+                      for row in rows_1]
+
+        rows_2 = db.engine.execute(query)
+        # Create a list of all dates in records
+        date_list = []
+        for row in rows_2:
+            date_list.append(row[3])
+        #
+
+        # Concatenate the two objects into a dictionary
+        records_dict = {
+            'cases': cases_dict,
+            # Unique, ordered dates only
+            'dates': sorted(set(date_list))}
+        return records_dict
 
 
 @ns_conf.route("/covidall")
