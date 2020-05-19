@@ -2,9 +2,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_restplus import Api
+from flask_compress import Compress
 
 db = SQLAlchemy()
 ma = Marshmallow()
+compress = Compress()
 
 
 def create_app():
@@ -22,5 +24,6 @@ def create_app():
         # Commit all updates to database
         db.session.commit()
         ma.init_app(app)
+        compress.init_app(app)
 
         return app
