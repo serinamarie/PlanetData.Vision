@@ -112,7 +112,11 @@ class USCountiesPull(Resource):
         db.session.commit()
 
         # Return statement of verification
-        return f'DB is up-to-date with covid all API as of {todays_data}'
+        return {
+            'statusCode': 200,
+            'headers': {'Content-Type': 'application/json'},
+            'body': todays_date
+        }
 
     def get(self):
         '''Returns filtered data from the 'uscounties' table.'''
@@ -192,7 +196,11 @@ class CovidAllPull(Resource):
         db.session.commit()
 
         # Return statement of verification
-        return f'DB is up-to-date with covid all API as of {todays_date}'
+        return {
+            'statusCode': 200,
+            'headers': {'Content-Type': 'application/json'},
+            'body': todays_date
+        }
 
     def get(self):
         '''REPLACED: This endpoint will filter and return all existing data from
