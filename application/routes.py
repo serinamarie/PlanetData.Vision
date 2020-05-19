@@ -18,14 +18,6 @@ ns_conf = api.namespace(
     description='Operations pertaining to the covid topic. Only the GET covid/uscounties endpoints need to be visited as they are accessed only by AWS Lambda functions, or already exist as Lambda functions themselves. The ones that already exist as Lambda functions will eventually be deleted as they are superfluous.')
 
 
-@ns_conf.route("/visual/summary")
-class BubbleVisual(Resource):
-    def get(self):
-        '''Returns the D3 bubble visualization (best visited directly)
-        through planetdata.world'''
-        return render_template('bubbles.html')
-
-
 @ns_conf.route("/summary")
 class SummaryPull(Resource):
     def post(self):
