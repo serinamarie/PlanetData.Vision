@@ -114,7 +114,7 @@ class USCountiesPull(Resource):
         # Return statement of verification
         return f'DB is up-to-date with covid all API as of {todays_data}'
 
-    def gett(self):
+    def get(self):
         '''Returns filtered data from the 'uscounties' table.'''
 
         query = '''SELECT lat, lon, cases::int, to_char(date, 'MM-dd-yy')
