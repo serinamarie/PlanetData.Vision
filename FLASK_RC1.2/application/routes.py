@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import current_app as app
 from flask_restplus import Api, Resource
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 import json
 from math import ceil
 import psycopg2
@@ -30,9 +30,9 @@ class BubbleVisual(Resource):
 class SummaryPull(Resource):
     def post(self):
         '''
-        REPLACED: This endpoint pulls data from covid/summary API into database.
-        Packaged as an AWS Lambda function. Accessible through API Gateway and
-        uses CloudWatch to run once a day'''
+        Repackaged as an AWS Lambda Function This endpoint pulls data from
+        covid/summary API into database. Packaged as an AWS Lambda function.
+        Accessible through API Gateway and uses CloudWatch to run once a day'''
         summary_data = "https://api.covid19api.com/summary"
         # Request the data
         response = requests.get(summary_data)
@@ -58,38 +58,52 @@ class SummaryPull(Resource):
         return 'status: 200'
 
     def get(self):
-        '''REPLACED: This endpoint will filter and return all existing data from
-        the 'summary' table in the database. It is no longer necessary as the
-        AWS API Gateway endpoint does the same thing.'''
-        all_records = Summary.query.all()
-        # Replace SQLAlchemy with basic SQL magic
-        result = summary_schema.dump(all_records)
-        return jsonify(result)
+        '''Repackaged as an AWS Lambda function connected to AWS API Gateway
+        endpoint where it is accessed by FE. Returns all existing data from the
+        'summary' table in the database. Defunct - delete by Labs' end.'''
+
+        query = """select * from summary"""
+
+        rows = db.engine.execute(query)
+
+        record_list = [
+            {
+                'country': row[0],
+                'totalconfirmed': row[1]
+            } for row in rows
+        ]
+
+        return jsonify(record_list)
 
 
 @ns_conf.route("/uscounties")
 class USCountiesPull(Resource):
     def post(self):
         '''
-        A Heroku endpoint existing to be triggered by an AWS Lambda function
-        each day via CloudWatch. There should never be a need to visit this
-        endpoint yourself as it is automated to parse new data from the
-        covid/live API into the AWS RDS PostgreSQL.'''
+        An AWS Lambda function calls this endpoint each day (triggered by a
+        CloudWatch rule). Parses new data from the covid/live API into the AWS
+        RDS PostgreSQL.'''
 
         # Request the data
         us_counties_data = "https://api.covid19api.com/country/us/status/confirmed/live"
         record_list = requests.get(us_counties_data).json()
 
         # Get new data (from today)
-        todays_data = datetime.now().date()
+        todays_date = datetime.now().date()
 
         for record in record_list:
 
-            # Cast the json str of the record date to a datetime
-            record['Date'] = datetime.strptime(record['Date'], '%Y-%m-%dT%H:%M:%SZ')
+            # format of the existing json date string
+            format = '%Y-%m-%dT%H:%M:%SZ'
+
+            # make the json record 'date' column a datetime object
+            dt = datetime.strptime(record['Date'], format)
+
+            # format it to match todays_date
+            record['Date'] = date(dt.year, dt.month, dt.day)
 
             # Take in a json string and creates a new record for it
-            if record['Date'] == todays_data:
+            if record['Date'] == todays_date:
                 new_record = USCounties(
                     country=record['Country'],
                     countrycode=record['CountryCode'],
@@ -114,11 +128,11 @@ class USCountiesPull(Resource):
         return {
             'statusCode': 200,
             'headers': {'Content-Type': 'application/json'},
-            'body': json.dumps("Successful!")
+            'body': json.dumps("Data for heatmap refreshed!")
         }
 
     def get(self):
-        '''Returns filtered data from the 'uscounties' table.'''
+        '''FE visits this endpoint directly for data from 'uscounties' table.'''
 
         query = '''SELECT lat, lon, cases::int, to_char(date, 'MM-dd-yy')
         AS date FROM uscounties
@@ -151,9 +165,8 @@ class CovidAllPull(Resource):
     def post(self):
         '''
         A Heroku endpoint existing to be triggered by an AWS Lambda function
-        each day via CloudWatch. There should never be a need to visit this
-        endpoint yourself as it is automated to parse new data from the
-        covid/all API into the AWS RDS PostgreSQL.'''
+        each day via CloudWatch. If this endpoint is visited it will add today's
+        data from the covid/all API into the AWS RDS PostgreSQL.'''
 
         # Request the data from external API
         covid_all_data = "https://api.covid19api.com/all"
@@ -164,10 +177,17 @@ class CovidAllPull(Resource):
 
         for record in record_list:
 
-            # todays_date and record['date'] must have same format
-            record['Date'] = datetime.strptime(record['Date'], '%Y-%m-%dT%H:%M:%SZ')
+            # format of the existing json date string
+            format = '%Y-%m-%dT%H:%M:%SZ'
 
-            if record['Date'] == todays_date:
+            # make the json record 'date' column a datetime object
+            dt = datetime.strptime(record['Date'], format)
+
+            # format it to match todays_date
+            record['Date'] = date(dt.year, dt.month, dt.day)
+
+            # if record['Date'] == todays_date:
+            if record['Date'] == today_date:
 
                 # Take in a json string and creates a new record for it
                 new_record = CovidAll(
@@ -197,25 +217,26 @@ class CovidAllPull(Resource):
         return {
             'statusCode': 200,
             'headers': {'Content-Type': 'application/json'},
-            'body': json.dumps("Successful!")
+            'body': json.dumps("Data for racechart refreshed!")
         }
 
     def get(self):
-        '''REPLACED: This endpoint will filter and return all existing data from
-        the 'covidall' table in the database. It is no longer necessary as the
-        AWS API Gateway endpoint does the same thing.'''
+        '''Replaced by an AWS API Gateway endpoint. This filters and returns
+        data from the 'covidall' table in the database for the racechart visual.
+        Defunct - delete before Labs' end.'''
 
         query = '''
         SELECT ranked_countries.country,
         to_char(ranked_countries.date, 'MM-dd-yy'),
         sum(ranked_countries.deaths) AS deaths
-        FROM (
+        FROM(
         SELECT covidall.country, covidall.date, covidall.deaths, rank()
-        OVER (PARTITION BY covidall.date ORDER BY covidall.deaths DESC)
-        FROM covidall WHERE province = '' OR country = 'China') ranked_countries
-        WHERE rank <=20 AND deaths > 0
+        OVER(PARTITION BY covidall.date ORDER BY covidall.deaths DESC)
+        FROM covidall WHERE province='' OR country='China') ranked_countries
+        WHERE rank <= 20 AND deaths > 0
         GROUP BY ranked_countries.date, ranked_countries.country
         ORDER BY ranked_countries.date'''
+        # ¯\_(ツ)_/¯
 
         rows = db.engine.execute(query)
 
