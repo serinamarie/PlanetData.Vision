@@ -15,7 +15,7 @@ from sqlalchemy import text
 api = Api(app)
 ns_conf = api.namespace(
     'covid',
-    description='Operations pertaining to the covid topic. None of these endpoints need to be visited as they are accessed only by AWS Lambda functions, or already exist as Lambda functions themselves. The ones that already exist as Lambda functions will eventually be deleted as they are superfluous.')
+    description='Operations pertaining to the covid topic. Only the GET covid/uscounties endpoints need to be visited as they are accessed only by AWS Lambda functions, or already exist as Lambda functions themselves. The ones that already exist as Lambda functions will eventually be deleted as they are superfluous.')
 
 
 @ns_conf.route("/visual/summary")
