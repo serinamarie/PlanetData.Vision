@@ -28,7 +28,7 @@ class BubbleVisual(Resource):
 
 @ns_conf.route("/summary")
 class SummaryPull(Resource):
-    def get(self):
+    def post(self):
         '''
         REPLACED: This endpoint pulls data from covid/summary API into database.
         Packaged as an AWS Lambda function. Accessible through API Gateway and
@@ -57,7 +57,7 @@ class SummaryPull(Resource):
         # Return statement of verification
         return 'status: 200'
 
-    def post(self):
+    def get(self):
         '''REPLACED: This endpoint will filter and return all existing data from
         the 'summary' table in the database. It is no longer necessary as the
         AWS API Gateway endpoint does the same thing.'''
@@ -69,7 +69,7 @@ class SummaryPull(Resource):
 
 @ns_conf.route("/uscounties")
 class USCountiesPull(Resource):
-    def get(self, days):
+    def post(self, days):
         '''
         A Heroku endpoint existing to be triggered by an AWS Lambda function
         each day via CloudWatch. There should never be a need to visit this
@@ -114,7 +114,7 @@ class USCountiesPull(Resource):
         # Return statement of verification
         return f'DB is up-to-date with covid all API as of {todays_data}'
 
-    def post(self):
+    def gett(self):
         '''Returns filtered data from the 'uscounties' table.'''
 
         query = '''SELECT lat, lon, cases::int, to_char(date, 'MM-dd-yy')
@@ -145,7 +145,7 @@ class USCountiesPull(Resource):
 
 @ns_conf.route("/covidall")
 class CovidAllPull(Resource):
-    def get(self, days):
+    def post(self, days):
         '''
         A Heroku endpoint existing to be triggered by an AWS Lambda function
         each day via CloudWatch. There should never be a need to visit this
@@ -194,7 +194,7 @@ class CovidAllPull(Resource):
         # Return statement of verification
         return f'DB is up-to-date with covid all API as of {todays_date}'
 
-    def post(self):
+    def get(self):
         '''REPLACED: This endpoint will filter and return all existing data from
         the 'covidall' table in the database. It is no longer necessary as the
         AWS API Gateway endpoint does the same thing.'''
