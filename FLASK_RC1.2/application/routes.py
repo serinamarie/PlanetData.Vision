@@ -69,7 +69,7 @@ class SummaryPull(Resource):
 
 @ns_conf.route("/uscounties")
 class USCountiesPull(Resource):
-    def post(self, days):
+    def post(self):
         '''
         A Heroku endpoint existing to be triggered by an AWS Lambda function
         each day via CloudWatch. There should never be a need to visit this
@@ -78,8 +78,7 @@ class USCountiesPull(Resource):
 
         # Request the data
         us_counties_data = "https://api.covid19api.com/country/us/status/confirmed/live"
-        response = requests.get(us_counties_data)
-        record_list = response.json()
+        record_list = requests.get(us_counties_data).json()
 
         # Get new data (from today)
         todays_data = datetime.now().date()
@@ -115,7 +114,7 @@ class USCountiesPull(Resource):
         return {
             'statusCode': 200,
             'headers': {'Content-Type': 'application/json'},
-            'body': todays_date
+            'body': json.dumps("Successful!")
         }
 
     def get(self):
@@ -149,7 +148,7 @@ class USCountiesPull(Resource):
 
 @ns_conf.route("/covidall")
 class CovidAllPull(Resource):
-    def post(self, days):
+    def post(self):
         '''
         A Heroku endpoint existing to be triggered by an AWS Lambda function
         each day via CloudWatch. There should never be a need to visit this
@@ -158,8 +157,7 @@ class CovidAllPull(Resource):
 
         # Request the data from external API
         covid_all_data = "https://api.covid19api.com/all"
-        response = requests.get(covid_all_data)
-        record_list = response.json()
+        record_list = requests.get(covid_all_data).json()
 
         # Get new data (from today)
         todays_date = datetime.now().date()
@@ -199,7 +197,7 @@ class CovidAllPull(Resource):
         return {
             'statusCode': 200,
             'headers': {'Content-Type': 'application/json'},
-            'body': todays_date
+            'body': json.dumps("Successful!")
         }
 
     def get(self):
