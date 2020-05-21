@@ -82,6 +82,7 @@ class USCountiesPull(Resource):
 
         # Get new data (from today)
         todays_date = datetime.now().date()
+        yesterdays_date = todays_date - datetime.timedelta(days=1)
 
         for record in record_list:
 
@@ -95,7 +96,7 @@ class USCountiesPull(Resource):
             record['Date'] = date(dt.year, dt.month, dt.day)
 
             # Take in a json string and creates a new record for it
-            if record['Date'] == todays_date:
+            if record['Date'] == yesterdays_date:
                 new_record = USCounties(
                     country=record['Country'],
                     countrycode=record['CountryCode'],
@@ -110,11 +111,9 @@ class USCountiesPull(Resource):
 
                 # Add record to database
                 db.session.add(new_record)
-            else:
-                pass
 
-        # Commit all records to database
-        db.session.commit()
+            # Commit all records to database
+            db.session.commit()
 
         # Return statement of verification
         return {
@@ -179,7 +178,7 @@ class CovidAllPull(Resource):
             record['Date'] = date(dt.year, dt.month, dt.day)
 
             # if record['Date'] == todays_date:
-            if record['Date'] == today_date:
+            if record['Date'] == todays_date:
 
                 # Take in a json string and creates a new record for it
                 new_record = CovidAll(
