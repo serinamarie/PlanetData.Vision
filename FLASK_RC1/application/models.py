@@ -1,11 +1,11 @@
 from flask_sqlalchemy import SQLAlchemy
 from . import db, ma
 
-# SUMMARY/BUBBLES CLASS
+# Marshmallow is defunct within this app at the moment 5/20/20
 
 
 class Summary(db.Model):
-    '''Attributes of '/summary' API class'''
+    '''Attributes of '/summary' API class for the bubbles vis'''
     __tablename__ = 'summary'
     __table_args__ = {'extend_existing': True}
     country = db.Column(db.String(100), primary_key=True)
@@ -14,10 +14,8 @@ class Summary(db.Model):
 
 
 class SummarySchema(ma.SQLAlchemyAutoSchema):
-    '''
-    Defunct as of 5/15/2020: Creates a Marshmallow schema for the Summary class
-    to easily query the 'summary' table in the Postgres database. May need
-    later.'''
+    '''Creates a Marshmallow schema for the Summary class
+    to easily query the 'summary' table in the Postgres database'''
     class Meta:
         model = Summary
 
@@ -25,11 +23,9 @@ class SummarySchema(ma.SQLAlchemyAutoSchema):
 # Set to many to allow filtering multiple queries
 summary_schema = SummarySchema(many=True)
 
-# COUNTIES/USLIVESTATUS/HEATMAP CLASS
-
 
 class USCounties(db.Model):
-    '''Attributes of US counties API class'''
+    '''Attributes of US counties API class for the heatmap'''
     __tablename__ = 'uscounties'
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
@@ -46,10 +42,8 @@ class USCounties(db.Model):
 
 
 class USCountiesSchema(ma.SQLAlchemyAutoSchema):
-    '''
-    Defunct as of 5/15/2020: Creates a Marshmallow schema for the USCounties
-    class to easily query the 'uscounties' table in the Postgres database.
-    May need later.'''
+    '''Creates a Marshmallow schema for the USCounties
+    class to easily query the 'uscounties' table in the Postgres database.'''
     class Meta:
         model = USCounties
 
@@ -57,11 +51,9 @@ class USCountiesSchema(ma.SQLAlchemyAutoSchema):
 # Set to many to allow filtering multiple queries
 us_counties_schema = USCountiesSchema(many=True)
 
-# COVID ALL/RACE CHART CLASS
-
 
 class CovidAll(db.Model):
-    '''Attributes of the '/all' Covid API class'''
+    '''Attributes of the '/all' Covid API class for racechart vis'''
     __tablename__ = 'covidall'
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
@@ -80,10 +72,8 @@ class CovidAll(db.Model):
 
 
 class CovidAllSchema(ma.SQLAlchemyAutoSchema):
-    '''
-    Defunct as of 5/15/2020: Creates a Marshmallow schema for the CovidAll class
-    to easily query the 'covidall' table in the Postgres database. May need
-    later.'''
+    '''Creates a Marshmallow schema for the CovidAll class
+    to easily query the 'covidall' table in the Postgres database.'''
     class Meta:
         model = CovidAll
 

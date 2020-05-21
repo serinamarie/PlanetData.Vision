@@ -1,5 +1,5 @@
 # run tests: python -m application.test
-# These are test-tests; this area needs work
+# Hoping to implement pytest stuff soon 5/20/20
 from flask_testing import TestCase
 
 try:

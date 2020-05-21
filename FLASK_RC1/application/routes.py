@@ -21,25 +21,27 @@ ns_conf = api.namespace(
 @ns_conf.route("/summary")
 class SummaryPull(Resource):
     def post(self):
-        '''
-        Repackaged as an AWS Lambda Function This endpoint pulls data from
-        covid/summary API into database. Packaged as an AWS Lambda function.
-        Accessible through API Gateway and uses CloudWatch to run once a day'''
+        '''This endpoint pulls data from covid/summary API into database.
+        Accessible through API Gateway and uses CloudWatch to run once a day.
+        Defunct (AWS Lambda Function).'''
+
         summary_data = "https://api.covid19api.com/summary"
         # Request the data
         response = requests.get(summary_data)
         nested_dict = response.json()
 
-        # Just get country data
+        # Just get country dictionary
         record_list = nested_dict['Countries']
 
         for record in record_list:
 
             # Get existing record from the db
             db_record = Summary.query.get(record['Country']) or Summary(country=record['Country'])
-            # Update all records
+
+            # Update record's # of confirmed as well as the date
             db_record.totalconfirmed = record['TotalConfirmed']
             db_record.date = record['Date']
+
             # Add the record to the session
             db.session.add(db_record)
 
@@ -47,17 +49,21 @@ class SummaryPull(Resource):
         db.session.commit()
 
         # Return statement of verification
-        return 'status: 200'
+        return {
+            'statusCode': 200,
+            'headers': {'Content-Type': 'application/json'},
+            'body': json.dumps("Data for bubble vis refreshed!")
+        }
 
     def get(self):
-        '''Repackaged as an AWS Lambda function connected to AWS API Gateway
-        endpoint where it is accessed by FE. Returns all existing data from the
-        'summary' table in the database. Defunct - delete by Labs' end.'''
+        '''Returns all existing data from the 'summary' table in the database.
+        Defunct (AWS Lambda package).'''
 
+        # Return all data
         query = """select * from summary"""
-
         rows = db.engine.execute(query)
 
+        # Create the schema for front end
         record_list = [
             {
                 'country': row[0],
@@ -71,18 +77,15 @@ class SummaryPull(Resource):
 @ns_conf.route("/uscounties")
 class USCountiesPull(Resource):
     def post(self):
-        '''
-        An AWS Lambda function calls this endpoint each day (triggered by a
-        CloudWatch rule). Parses new data from the covid/live API into the AWS
-        RDS PostgreSQL.'''
+        '''Parses new data from the covid/live API into the AWS
+        RDS PostgreSQL. An AWS Lambda function calls this endpoint each day.'''
 
         # Request the data
         us_counties_data = "https://api.covid19api.com/country/us/status/confirmed/live"
         record_list = requests.get(us_counties_data).json()
 
-        # Get new data (from today)
+        # Get new data (from today only)
         todays_date = datetime.now().date()
-        yesterdays_date = todays_date - datetime.timedelta(days=1)
 
         for record in record_list:
 
@@ -96,7 +99,7 @@ class USCountiesPull(Resource):
             record['Date'] = date(dt.year, dt.month, dt.day)
 
             # Take in a json string and creates a new record for it
-            if record['Date'] == yesterdays_date:
+            if record['Date'] == todays_date:
                 new_record = USCounties(
                     country=record['Country'],
                     countrycode=record['CountryCode'],
@@ -123,7 +126,7 @@ class USCountiesPull(Resource):
         }
 
     def get(self):
-        '''FE visits this endpoint directly for data from 'uscounties' table.'''
+        '''Filters the data from the 'uscounties' table and returns json'''
 
         query = '''SELECT lat, lon, cases::int, to_char(date, 'MM-dd-yy')
         AS date FROM uscounties
@@ -154,10 +157,8 @@ class USCountiesPull(Resource):
 @ns_conf.route("/covidall")
 class CovidAllPull(Resource):
     def post(self):
-        '''
-        A Heroku endpoint existing to be triggered by an AWS Lambda function
-        each day via CloudWatch. If this endpoint is visited it will add today's
-        data from the covid/all API into the AWS RDS PostgreSQL.'''
+        '''Parses new data from the covid/all API into the AWS RDS PostgreSQL.
+        An AWS Lambda function calls this endpoint each day.'''
 
         # Request the data from external API
         covid_all_data = "https://api.covid19api.com/all"
@@ -212,9 +213,8 @@ class CovidAllPull(Resource):
         }
 
     def get(self):
-        '''Replaced by an AWS API Gateway endpoint. This filters and returns
-        data from the 'covidall' table in the database for the racechart visual.
-        Defunct - delete before Labs' end.'''
+        '''Filters and returns data from the 'covidall' table in the database
+        for the racechart visual. Defunct (AWS API Gateway & AWS Lambda).'''
 
         query = '''
         SELECT ranked_countries.country,
