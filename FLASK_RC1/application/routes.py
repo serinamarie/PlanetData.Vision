@@ -154,9 +154,9 @@ class USCountiesPull(Resource):
         return jsonify(records_dict)
 
 
-@ns_conf.route("/covidall")
+@ns_conf.route("/covidall/update")
 class CovidAllPull(Resource):
-    def post(self):
+    def get(self):
         '''Parses new data from the covid/all API into the AWS RDS PostgreSQL.
         An AWS Lambda function calls this endpoint each day.'''
 
@@ -212,6 +212,9 @@ class CovidAllPull(Resource):
             'body': json.dumps("Data for racechart refreshed!")
         }
 
+
+@ns_conf.route("/covidall/query")
+class CovidAllPull(Resource):
     def get(self):
         '''Filters and returns data from the 'covidall' table in the database
         for the racechart visual. Defunct (AWS API Gateway & AWS Lambda).'''
