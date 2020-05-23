@@ -9,7 +9,7 @@
 
 # 1️⃣ Earth Dashboard
 
-You can find the project at [🚫URL NAME GOES HERE](🚫copy and paste URL here).
+You can find the project at [Planet Data](planetdata.world).
 
 ## 5️⃣ Contributors
 
@@ -20,6 +20,13 @@ You can find the project at [🚫URL NAME GOES HERE](🚫copy and paste URL here
 |                      [<img src="https://github.com/CVanchieri/CVanchieri.github.io/blob/master/img/GeneralPortfolio/CVProfile.jpg?raw=true" width = "200" />](https://github.com/CVanchieri)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/)                       |                      [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/)                       |
 |                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                 |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/honda0306)             |           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Mister-Corn)            |          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NandoTheessen)           |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wvandolah)             |
 | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/cvanchieri6/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) |
+
+
+|Charles Vanchieri|Serina Grill|Sean Hobin|      
+| :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
+|                      [<img src="https://github.com/CVanchieri/CVanchieri.github.io/blob/master/img/GeneralPortfolio/CVProfile2.jpg?raw=true" width = "200" />](https://github.com/CVanchieri)                       |                      [<img src="https://avatars1.githubusercontent.com/u/42048900?s=460&u=bc21df438fd5dad8ab1e15b57aaba82c6ff45856&v=4" width = "200" />](https://github.com/)                       |                      [<img src="https://abstractmonkey.github.io/img/avatar.jpg" width = "200" />](https://github.com/)                       |   
+|                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/cvanchieri)                 |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/serinamarie)             |           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/AbstractMonkey)            |    
+| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/cvanchieri6/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/serinamarie) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | 
 
 
 
@@ -43,7 +50,9 @@ You can find the project at [🚫URL NAME GOES HERE](🚫copy and paste URL here
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+Visualizations: Python, Plotly, Matplotlib, Mapbox, D3
+Backend: Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, Heroku, AWS RDS PostgreSQL
 
 🚫  delete if front end is not applicable to your project
 
