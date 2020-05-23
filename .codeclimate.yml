@@ -6,9 +6,9 @@ checks:
   complex-logic:
     config:
       threshold: 4
-  file-lines:
-    config:
-      threshold: 250
+ # file-lines:
+  #  config:
+  #    threshold: 250
   method-complexity:
     config:
       threshold: 5
@@ -24,9 +24,9 @@ checks:
   return-statements:
     config:
       threshold: 4
-  similar-code:
-    config:
-      threshold: # language-specific defaults. an override will affect all languages.
+ # similar-code:
+  #  config:
+  #    threshold: # language-specific defaults. an override will affect all languages.
   identical-code:
     config:
       threshold: # language-specific defaults. an override will affect all languages.
