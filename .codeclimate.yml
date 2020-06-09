@@ -2,34 +2,34 @@ version: "2"         # required to adjust maintainability checks
 checks:
   argument-count:
     config:
-      threshold: 4
+      threshold: 20
   complex-logic:
     config:
-      threshold: 4
+      threshold: 20
   file-lines:
     config:
       threshold: 10000
   method-complexity:
     config:
-      threshold: 5
+      threshold: 50
   method-count:
     config:
-      threshold: 20
+      threshold: 50
   method-lines:
     config:
-      threshold: 25
+      threshold: 50
   nested-control-flow:
     config:
-      threshold: 4
+      threshold: 20
   return-statements:
     config:
-      threshold: 4
+      threshold: 20
   similar-code:
     config:
-      threshold: 20
+      threshold: 1000
   identical-code:
     config:
-      threshold: 20
+      threshold: 1000
 plugins:
   pep8:
     enabled: true
