@@ -33,20 +33,9 @@ A real-time dashboard to teach middle school students the fundamentals of data v
 Visualizations: Python, Plotly, Matplotlib, Mapbox, D3
 Backend: Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, Heroku, AWS RDS PostgreSQL
 
-### Predictions
-
-🚫 Describe your models here
-
-
-### Explanatory Variables
-
--   Explanatory Variable 1
--   Explanatory Variable 2
--   Explanatory Variable 3
--   Explanatory Variable 4
--   Explanatory Variable 5
 
 ### Data Sources
+
 COVID-19
 -   [Covid Heatmap](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/COVID19API_DataVis2_CV.ipynb)
 -   [Covid Race Chart](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/COVID19API_DataVis4_CV.ipynb)
@@ -56,23 +45,21 @@ COVID-19
 Deforestation
 - [Deforestation Data](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationDataWrangle_RC2_CV.ipynb)
 - [Deforestation Model](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationPredictionModel_RC2_CV.ipynb)
-- [Deforestation Predictions](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationDataVis_RC2_CV.ipynb)
-
+- [Deforestation Line/Bar Graph](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationDataVis_RC2_CV.ipynb)
 
 Bird Migration Patterns
-
-
+- text here
+- text here
+- text here
 
 Global Warming
+- text here
+- text here
+- text here
 
+Data Migration
+- [Preliminary data migration](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Web_API_to_DB_Migration.ipynb)
 
-### How to connect to the web API
-
-[Preliminary data migration](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Web_API_to_DB_Migration.ipynb)
-
-###How to connect to the data API
-
-Data backend link
 
 ## Documentation
 
