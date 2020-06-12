@@ -12,10 +12,6 @@ You can find the project at [Planet Data](planetdata.world).
 
 ## DS Contributors
 
-[[Web FE]](https://github.com/Lambda-School-Labs/earth-dashboard-fe)
-[[Web BE]](https://github.com/Lambda-School-Labs/earth-dashboard-be)
-[[DS]](https://github.com/Lambda-School-Labs/earth-dashboard-ds)
-
 |Charles Vanchieri|Serina Grill|Sean Hobin|      
 | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
 |                      [<img src="https://github.com/CVanchieri/CVanchieri.github.io/blob/master/img/GeneralPortfolio/CVProfile2.jpg?raw=true" width = "200" />](https://github.com/CVanchieri)                       |                      [<img src="https://avatars1.githubusercontent.com/u/42048900?s=460&u=bc21df438fd5dad8ab1e15b57aaba82c6ff45856&v=4" width = "200" />](https://github.com/)                       |                      [<img src="https://abstractmonkey.github.io/img/avatar.jpg" width = "200" />](https://github.com/)                       |   
