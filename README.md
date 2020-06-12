@@ -53,31 +53,26 @@ An educational dashboard to teach middle school students the fundamentals of dat
 
 ### Data Sources
 
-COVID-19
+#### COVID-19
 - [Covid Heatmap](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/COVID19API_DataVis2_CV.ipynb)
 - [Covid Race Chart](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/COVID19API_DataVis4_CV.ipynb)
 - [Covid Bubbles Plot](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/FLASK_RC1.2/application/templates/bubbles.html)
 - [Covid Air Pollution Line Graph](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Air_Pollution_During_Quarantine.ipynb)
 
-Deforestation
+#### Deforestation
 - [Deforestation Data](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationDataWrangle_RC2_CV.ipynb)
 - [Deforestation Model](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationPredictionModel_RC2_CV.ipynb)
 - [Deforestation Line + Bar Graph](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationDataVis_RC2_CV.ipynb)
 
-Bird Migration Patterns
+#### Bird Migration Patterns
 - text here
 - text here
 - text here
 
-Global Warming
+#### Global Warming
 - text here
 - text here
 - text here
 
 ### Data Migration
 - [Preliminary data migration](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Web_API_to_DB_Migration.ipynb)
-
-
-## Documentation
-
-Screenshot of the backend homepage
