@@ -57,7 +57,7 @@ Global Warming
 - text here
 - text here
 
-Data Migration
+### Data Migration
 - [Preliminary data migration](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Web_API_to_DB_Migration.ipynb)
 
 
