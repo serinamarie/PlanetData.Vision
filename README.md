@@ -35,20 +35,10 @@ An educational dashboard to teach middle school students the fundamentals of dat
 ### Tech Stack
 
 #### Visualizations
-- Python
-- Plotly
-- Matplotlib
-- Mapbox
-- D3
+Python, Plotly, Matplotlib, Mapbox, D3
 
 #### Backend
-- Flask
-- AWS Lambda
-- AWS API Gateway
-- AWS CloudWatch
-- AWS RDS
-- Heroku
-- PostgreSQL
+Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, AWS RDS, Heroku, PostgreSQL
 
 
 ### Data Sources
