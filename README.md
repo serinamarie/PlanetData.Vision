@@ -3,11 +3,11 @@
 
 # Earth Dashboard
 
-You can find the project at [Planet Data](planetdata.world).
+The project can be found at [Planetdata.world](planetdata.world)
 
-- [Web FE](https://github.com/Lambda-School-Labs/earth-dashboard-fe)
-- [Web BE](https://github.com/Lambda-School-Labs/earth-dashboard-be)
-- [DS](https://github.com/Lambda-School-Labs/earth-dashboard-ds)
+- [Web Frontend](https://github.com/Lambda-School-Labs/earth-dashboard-fe)
+- [Web Backend](https://github.com/Lambda-School-Labs/earth-dashboard-be)
+- [Data Science](https://github.com/Lambda-School-Labs/earth-dashboard-ds)
 
 
 ## DS Contributors
@@ -29,13 +29,26 @@ You can find the project at [Planet Data](planetdata.world).
 
 [Product Canvas](https://www.notion.so/8bd1fb80a11447f9b3a2a4572bda7a33?v=bc7e5838ad224b978d81fc5946c29650)
 
-A real-time dashboard to teach middle school students the fundamentals of data visualization.
+An educational dashboard to teach middle school students the fundamentals of data visualization through environmental lessons.
 
 
 ### Tech Stack
 
-Visualizations: Python, Plotly, Matplotlib, Mapbox, D3
-Backend: Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, Heroku, AWS RDS PostgreSQL
+#### Visualizations
+- Python
+- Plotly
+- Matplotlib
+- Mapbox
+- D3
+
+#### Backend
+- Flask
+- AWS Lambda
+- AWS API Gateway
+- AWS CloudWatch
+- AWS RDS
+- Heroku
+- PostgreSQL
 
 
 ### Data Sources
@@ -43,13 +56,13 @@ Backend: Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, Heroku, AWS RDS Pos
 COVID-19
 - [Covid Heatmap](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/COVID19API_DataVis2_CV.ipynb)
 - [Covid Race Chart](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/COVID19API_DataVis4_CV.ipynb)
-- [Covid Bubbles](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/FLASK_RC1.2/application/templates/bubbles.html)
-- [Covid/Air Pollution Line Graph](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Air_Pollution_During_Quarantine.ipynb)
+- [Covid Bubbles Plot](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/FLASK_RC1.2/application/templates/bubbles.html)
+- [Covid Air Pollution Line Graph](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Air_Pollution_During_Quarantine.ipynb)
 
 Deforestation
 - [Deforestation Data](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationDataWrangle_RC2_CV.ipynb)
 - [Deforestation Model](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationPredictionModel_RC2_CV.ipynb)
-- [Deforestation Line/Bar Graph](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationDataVis_RC2_CV.ipynb)
+- [Deforestation Line + Bar Graph](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationDataVis_RC2_CV.ipynb)
 
 Bird Migration Patterns
 - text here
