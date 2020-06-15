@@ -3,7 +3,7 @@
 
 ### Planetdata.world
 
-The project can be found at [Planetdata.world](planetdata.world)
+The project can be found at [Planetdata.world](https://planetdata.world)
 
 - [Web Frontend](https://github.com/Lambda-School-Labs/earth-dashboard-fe)
 - [Web Backend](https://github.com/Lambda-School-Labs/earth-dashboard-be)
