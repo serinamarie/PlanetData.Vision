@@ -9,8 +9,7 @@ The project can be found at [Planetdata.world](planetdata.world)
 - [Web Backend](https://github.com/Lambda-School-Labs/earth-dashboard-be)
 - [Data Science](https://github.com/Lambda-School-Labs/earth-dashboard-ds)
 
-
-#### DS Contributors
+### DS Contributors
 
 |Charles Vanchieri|Serina Grill|Sean Hobin|      
 | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
