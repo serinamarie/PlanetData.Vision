@@ -1,7 +1,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/89fe2c715447b3929eab/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/earth-dashboard-ds/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/89fe2c715447b3929eab/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/earth-dashboard-ds/test_coverage)
 
-## Planetdata.world
+### Planetdata.world
 
 The project can be found at [Planetdata.world](planetdata.world)
 
@@ -10,7 +10,7 @@ The project can be found at [Planetdata.world](planetdata.world)
 - [Data Science](https://github.com/Lambda-School-Labs/earth-dashboard-ds)
 
 
-### DS Contributors
+#### DS Contributors
 
 |Charles Vanchieri|Serina Grill|Sean Hobin|      
 | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
@@ -22,8 +22,9 @@ The project can be found at [Planetdata.world](planetdata.world)
 ![Python](https://img.shields.io/static/v1?label=Py&message=Python3.7&color=Blue)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
+##
 
-## Project Overview
+### Project Overview
 
 [Trello Board](https://trello.com/b/5gHETvxv/earth-dashboard)
 
@@ -32,14 +33,15 @@ The project can be found at [Planetdata.world](planetdata.world)
 An educational dashboard to teach middle school students the fundamentals of data visualization through environmental lessons.
 
 
-### Tech Stack
+#### Tech Stack
 
 Visualizations: Python, Plotly, Matplotlib, Mapbox, D3
 
 Backend: Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, AWS RDS, Heroku, PostgreSQL
 
+##
 
-## Data Sources
+### Data Sources
 
 #### COVID-19
 - [Covid Heatmap](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/COVID19API_DataVis2_CV.ipynb)
@@ -65,7 +67,8 @@ Backend: Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, AWS RDS, Heroku, Po
 ### Database Migration
 - [Data Migration](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Web_API_to_DB_Migration.ipynb)
 
+##
 
-## Architecture
+### Architecture
 <img src="https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/feature/updating-README-for-RC2/Notebooks/DSArchitecture.png?raw=true" width = "600" />
 
