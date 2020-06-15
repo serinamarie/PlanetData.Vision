@@ -32,13 +32,11 @@ The project can be found at [Planetdata.world](planetdata.world)
 An educational dashboard to teach middle school students the fundamentals of data visualization through environmental lessons.
 
 
-
 ### Tech Stack
 
 Visualizations: Python, Plotly, Matplotlib, Mapbox, D3
 
 Backend: Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, AWS RDS, Heroku, PostgreSQL
-
 
 
 ### Data Sources
@@ -67,6 +65,7 @@ Backend: Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, AWS RDS, Heroku, Po
 
 ### Database Migration
 - [Data Migration](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Web_API_to_DB_Migration.ipynb)
+
 
 ### Architecture
 <img src="https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/feature/updating-README-for-RC2/Notebooks/DSArchitecture.png?raw=true" width = "600" />
