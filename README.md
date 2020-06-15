@@ -1,7 +1,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/89fe2c715447b3929eab/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/earth-dashboard-ds/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/89fe2c715447b3929eab/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/earth-dashboard-ds/test_coverage)
 
-# Earth Dashboard
+## Planetdata.world
 
 The project can be found at [Planetdata.world](planetdata.world)
 
@@ -10,7 +10,7 @@ The project can be found at [Planetdata.world](planetdata.world)
 - [Data Science](https://github.com/Lambda-School-Labs/earth-dashboard-ds)
 
 
-## DS Contributors
+### DS Contributors
 
 |Charles Vanchieri|Serina Grill|Sean Hobin|      
 | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
@@ -39,7 +39,7 @@ Visualizations: Python, Plotly, Matplotlib, Mapbox, D3
 Backend: Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, AWS RDS, Heroku, PostgreSQL
 
 
-### Data Sources
+## Data Sources
 
 #### COVID-19
 - [Covid Heatmap](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/COVID19API_DataVis2_CV.ipynb)
@@ -62,11 +62,10 @@ Backend: Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, AWS RDS, Heroku, Po
 - text here
 - text here
 
-
 ### Database Migration
 - [Data Migration](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Web_API_to_DB_Migration.ipynb)
 
 
-### Architecture
+## Architecture
 <img src="https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/feature/updating-README-for-RC2/Notebooks/DSArchitecture.png?raw=true" width = "600" />
 
