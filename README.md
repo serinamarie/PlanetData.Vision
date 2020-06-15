@@ -65,9 +65,9 @@ Backend: Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, AWS RDS, Heroku, Po
 - text here
 
 
-### Data Migration
-- [Preliminary data migration](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Web_API_to_DB_Migration.ipynb)
+### Database Migration
+- [Data Migration](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Web_API_to_DB_Migration.ipynb)
 
 ### Architecture
-<img src="https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/feature/updating-README-for-RC2/Notebooks/DSArchitecture.png?raw=true" width = "200" />
+<img src="https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/feature/updating-README-for-RC2/Notebooks/DSArchitecture.png?raw=true" width = "600" />
 
