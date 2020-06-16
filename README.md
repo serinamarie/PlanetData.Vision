@@ -5,8 +5,7 @@
 
 The project can be found at [Planetdata.world](https://planetdata.world)
 
-- [Web Frontend](https://github.com/Lambda-School-Labs/earth-dashboard-fe)
-- [Web Backend](https://github.com/Lambda-School-Labs/earth-dashboard-be)
+- [Web](https://github.com/Lambda-School-Labs/earth-dashboard-fe)
 - [Data Science](https://github.com/Lambda-School-Labs/earth-dashboard-ds)
 
 ### DS Contributors
