@@ -68,5 +68,5 @@ Backend: Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, AWS RDS, Heroku, Po
 ##
 
 ### Architecture
-<img src="https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/feature/updating-README-for-RC2/Notebooks/DSArchitecture.png?raw=true" width = "600" />
+<img src="https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DSArchitecture.png?raw=true" width = "600" />
 
