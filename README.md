@@ -1,11 +1,14 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/89fe2c715447b3929eab/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/earth-dashboard-ds/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/89fe2c715447b3929eab/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/earth-dashboard-ds/test_coverage)
 
-# Earth Dashboard
+### Planetdata.world
 
-You can find the project at [Planet Data](planetdata.world).
+The project can be found at [Planetdata.world](https://planetdata.world)
 
-## Contributors
+- [Web](https://github.com/Lambda-School-Labs/earth-dashboard-fe)
+- [Data Science](https://github.com/Lambda-School-Labs/earth-dashboard-ds)
+
+### DS Contributors
 
 |Charles Vanchieri|Serina Grill|Sean Hobin|      
 | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
@@ -13,54 +16,57 @@ You can find the project at [Planet Data](planetdata.world).
 |                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/cvanchieri)                 |            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/serinamarie)             |           [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/AbstractMonkey)            |    
 | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/cvanchieri6/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/serinamarie) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) |
 
-
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 ![Python](https://img.shields.io/static/v1?label=Py&message=Python3.7&color=Blue)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
+##
 
-## Project Overview
+### Project Overview
 
 [Trello Board](https://trello.com/b/5gHETvxv/earth-dashboard)
 
 [Product Canvas](https://www.notion.so/8bd1fb80a11447f9b3a2a4572bda7a33?v=bc7e5838ad224b978d81fc5946c29650)
 
-A real-time dashboard to teach middle school students the fundamentals of data visualization.
+An educational dashboard to teach middle school students the fundamentals of data visualization through environmental lessons.
 
 
-### Tech Stack
+#### Tech Stack
 
 Visualizations: Python, Plotly, Matplotlib, Mapbox, D3
-Backend: Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, Heroku, AWS RDS PostgreSQL
 
-### Predictions
+Backend: Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, AWS RDS, Heroku, PostgreSQL
 
-🚫 Describe your models here
-
-
-### Explanatory Variables
-
--   Explanatory Variable 1
--   Explanatory Variable 2
--   Explanatory Variable 3
--   Explanatory Variable 4
--   Explanatory Variable 5
+##
 
 ### Data Sources
 
--   [Covid Heatmap](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/COVID19API_DataVis2_CV.ipynb)
--   [Covid Race Chart](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/COVID19API_DataVis4_CV.ipynb)
--   [Covid Bubbles](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/FLASK_RC1.2/application/templates/bubbles.html)
-- [Covid/Air Pollution Line Graph](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Air_Pollution_During_Quarantine.ipynb)
+#### COVID-19
+- [Covid Heatmap](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/COVID19API_DataVis2_CV.ipynb)
+- [Covid Race Chart](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/COVID19API_DataVis4_CV.ipynb)
+- [Covid Bubbles Plot](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/FLASK_RC1.2/application/templates/bubbles.html)
+- [Covid Air Pollution Line Graph](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Air_Pollution_During_Quarantine.ipynb)
 
-### How to connect to the web API
+#### Deforestation
+- [Deforestation Data](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationDataWrangle_RC2_CV.ipynb)
+- [Deforestation Model](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationPredictionModel_RC2_CV.ipynb)
+- [Deforestation Line + Bar Graph](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationDataVis_RC2_CV.ipynb)
 
-[Preliminary data migration](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Web_API_to_DB_Migration.ipynb)
+#### Bird Migration Patterns
+- text here
+- text here
+- text here
 
-###How to connect to the data API
+#### Global Warming
+- text here
+- text here
+- text here
 
-Data backend link
+### Database Migration
+- [Data Migration](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Web_API_to_DB_Migration.ipynb)
 
-## Documentation
+##
 
-Screenshot of the backend homepage
+### Architecture
+<img src="https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/feature/updating-README-for-RC2/Notebooks/DSArchitecture.png?raw=true" width = "600" />
+
