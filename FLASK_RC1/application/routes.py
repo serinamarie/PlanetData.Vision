@@ -10,7 +10,7 @@ import json
 from math import ceil
 import psycopg2
 from sqlalchemy import text
-
+from flask import render_template
 
 api = Api(app)
 ns_conf = api.namespace(

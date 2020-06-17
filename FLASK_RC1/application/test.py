@@ -16,7 +16,7 @@ class BubbleTest(unittest.TestCase):
         # Check for response 200
         app = create_app()
         tester = app.test_client(self)
-        response = tester.get("/db/bubbles")
+        response = tester.get("/covid/summary")
         statuscode = response.status_code
         self.assertEqual(statuscode, 200)
 
@@ -24,8 +24,8 @@ class BubbleTest(unittest.TestCase):
         # Check if content return is application/json
         app = create_app()
         tester = app.test_client(self)
-        response = tester.get("/db/bubbles")
-        self.assertEqual(response.content_type, 'text/html; charset=utf-8')
+        response = tester.get("/covid/summary")
+        self.assertEqual(response.content_type, 'text/html')
 
 
 class HeatmapTest(unittest.TestCase):
@@ -35,8 +35,8 @@ class HeatmapTest(unittest.TestCase):
         # Check if content return is application/json
         app = create_app()
         tester = app.test_client(self)
-        response = tester.get("/db/heatmap")
-        self.assertEqual(response.content_type, 'text/html; charset=utf-8')
+        response = tester.get("/covid/uscounties")
+        self.assertEqual(response.content_type, 'text/html')
 
 
 class RacechartTest(unittest.TestCase):
@@ -46,8 +46,8 @@ class RacechartTest(unittest.TestCase):
         # Check if content return is application/json
         app = create_app()
         tester = app.test_client(self)
-        response = tester.get("/db/racechart")
-        self.assertEqual(response.content_type, 'text/html; charset=utf-8')
+        response = tester.get("/covid/covidall")
+        self.assertEqual(response.content_type, 'text/html')
 
 
 if __name__ == '__main__':
