@@ -197,6 +197,8 @@ Returns a set of all dates, the date and daily dean PM2.5 concentration for each
 
 Returns the country code, year, agricultural land in sq. km, electrical power consumption, GDP per capita growth, livestock production index, number of ores and metals export, urban population, crop production index, food production index and forest area for each country.
 
+### Schema
+
 ```typescript
 {
 	"Country Name": string, 
@@ -224,6 +226,8 @@ https://4eo1w5jvy0.execute-api.us-east-1.amazonaws.com/default/globe_footprint
 
 Returns the city, latitutde of the city, longitude of the city, and carbon footprint of the city.
 
+### Schema
+
 ```typescript
 [
 	[city, lat, lon, magnitude, city, lat, lon, magnitude, city, city, lat, lon, magnitude.. ]
@@ -239,6 +243,8 @@ https://4eo1w5jvy0.execute-api.us-east-1.amazonaws.com/default/migration_density
 ### Description
 
 Returns number of bird sightings for that species in 1970, 1975, 1981, 1985, 1990, 1998, 2004, 2011, and 2015.
+
+### Schema
 
 ```typescript
 {
