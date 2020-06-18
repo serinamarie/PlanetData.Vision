@@ -3,7 +3,15 @@
 
 ## PlanetData.World
 
-The project can be found at [PlanetData.World](https://planetdata.world)
+### Project Overview:
+
+A website to teach middle school students about the Earth and data visualization through interactive lessons.
+
+[Website](https://planetdata.world)
+
+[Product Release Canvas](https://www.notion.so/8bd1fb80a11447f9b3a2a4572bda7a33?v=bc7e5838ad224b978d81fc5946c29650)
+
+[Trello Board](https://trello.com/b/5gHETvxv/earth-dashboard)
 
 Project Repos:
 - [Front-End](https://github.com/Lambda-School-Labs/earth-dashboard-fe)
@@ -20,16 +28,6 @@ Project Repos:
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 ![Python](https://img.shields.io/static/v1?label=Py&message=Python3.7&color=Blue)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
-##
-
-### Project Overview:
-
-A website to teach middle school students about the Earth and data visualization through interactive lessons.
-
-[Product Release Canvas](https://www.notion.so/8bd1fb80a11447f9b3a2a4572bda7a33?v=bc7e5838ad224b978d81fc5946c29650)
-
-[Trello Board](https://trello.com/b/5gHETvxv/earth-dashboard)
 
 ##
 
