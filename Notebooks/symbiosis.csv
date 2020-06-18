@@ -1,0 +1,32 @@
+source,target,type
+Flower Mites,Hamelia Flower,parasitism
+Oxpecker Bird,Rhinoceros,commensalism 
+Flower Mites,Hummingbird,parasitism
+Hamelia Flower,Hummingbird,mutualism
+Three-Toed Sloth,Sloth Moth,mutualism
+Algae,Sloth Moth,mutualism
+Three-Toed Sloth,Algae,mutualism
+Golden Jellyfish,Algae,mutualism
+Sea Anemone,Algae,mutualism
+Jewel Wasp,American Cockroach,parasitism
+Sea Otter,Kelp,mutualism
+Garter Snake,Rough-Skinned Newt,parasitism
+Ostrich,Zebra,mutualism
+Blue Wildebeest,Zebra,mutualism
+Crabs,Sea Urchin,mutualism
+Zebra,Oxpecker Bird,mutualism
+Water Buffalo,Oxpecker Bird,mutualism
+Hermit Crab,Sea Anemone,mutualism
+Sea Anemone,Clownfish,mutualism
+Annelid worm,Sea Star,commensalism 
+Barnacles,Baleen Whale,commensalism 
+Large Blue Butterfly,Red Ant,mutualism
+Red Ant,Aphid,commensalism 
+Monarch Butterfly,Viceroy Butterfly,commensalism 
+Sea Star,Coral reef,parasitism
+Arctic Fox,Caribou,commensalism 
+Emperor Shrimp,Sea Cucumber,commensalism 
+Pearlfish,Sea Cucumber,commensalism 
+Aphids,Plants (various),parasitism
+Zebra Crab,Sea Urchin,parasitism
+Sea Urchin,Carrier Crab,mutualism
