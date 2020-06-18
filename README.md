@@ -43,7 +43,7 @@ Visualizations: **Python**, **Plotly**, **D3**, **Mapbox**, **Seaborn**, **Matpl
 
 Backend: **AWS API Gateway**, **AWS Lambda**, **AWS RDS PostgreSQL**, **Flask**, **Heroku**, **AWS CloudWatch**
 
-Predictive Modeling: **Facebook Prophet**
+Predictive Modeling: **Facebook Prophet**, **Random Forest Regressor**
 
 ##
 
