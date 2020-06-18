@@ -248,14 +248,14 @@ Returns number of bird sightings for that species in 1970, 1975, 1981, 1985, 199
 
 ```typescript
 {
-"1970": number, 
-"1975": number, 
-"1981": number, 
-"1985": number, 
-"1990": number, 
-"1998": number, 
-"2004": number, 
-"2011": number, 
-"2015": number
+	"1970": number, 
+	"1975": number, 
+	"1981": number, 
+	"1985": number, 
+	"1990": number, 
+	"1998": number, 
+	"2004": number, 
+	"2011": number, 
+	"2015": number
 }
 ```
