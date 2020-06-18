@@ -180,9 +180,8 @@ class CovidAllPull(Resource):
 
             # format it to match todays_date
             record['Date'] = date(dt.year, dt.month, dt.day)
-        return todays_date
-           # if record['Date'] == todays_date:
-           if record['Date'] == todays_date:
+
+            if record['Date'] == todays_date:
 
                 # Take in a json string and creates a new record for it
                 new_record = CovidAll(
