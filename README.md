@@ -65,8 +65,9 @@ Predictive Modeling: **Facebook Prophet**
 - [Deforestation Line & Bar Graph](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationDataVis_RC2_CV.ipynb)
 
 #### Wildlife
-- [Migratory Bird Patterns](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Migratory_Bird_Patterns.ipynb)
-- [Symbiosis](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/symbiosis.csv)
+- [Migratory Bird Patterns Data](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/birds.csv)
+- [Migratory Bird Patterns Ridgeplot](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Migratory_Bird_Patterns.ipynb)
+- [Symbiosis Data](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/symbiosis.csv)
 
 #### Global Warming
 - [CO<sub>2</sub> in the Atmosphere](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/mol_fraction_co2.ipynb)
