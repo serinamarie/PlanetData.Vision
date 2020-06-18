@@ -85,7 +85,7 @@ Predictive Modeling: **Facebook Prophet**, **Random Forest Regressor**
 ### Architecture
 <img src="https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Images/DSArchitecture.png" width = "600" />
 
-#### Backend deployed mostly on AWS API Gateway and also on [Heroku](https://ds-backend-planetdata.herokuapp.com/).<br>
+#### Backend deployed serverlessly through AWS API Gateway and AWS Lambda, with a single endpoint existing on a [Heroku] server (https://ds-backend-planetdata.herokuapp.com/).<br>
 
 ## Endpoints
 
