@@ -136,7 +136,7 @@ Returns the latitude, longitude, number of confirmed cases, and date for each da
 		"lon": number,
 		"cases": number,
 		"date": string ("MM/dd/yy")
-	},
+		},
 	"dates": string ("MM/dd/yy")
 }
 ```
@@ -157,7 +157,7 @@ Returns the country, date, and cumulative number of deaths from COVID-19.
 {
 	"country": string,
 	"date": string ("yyyy/MM/dd"),
-  "deaths": number
+	"deaths": number
 }
 ```
 
@@ -179,11 +179,11 @@ Returns a set of all dates, the date and daily dean PM2.5 concentration for each
 	"airQuality": {
 		"x": string ("M/d/yyyy"),
 		"y": number
-	}[],
+		}[],
 	"cases": {
 		"x": string ("M/d/yyyy"),
 		"y": number
-	}[]
+		}[]
 }
 ```
 
