@@ -18,65 +18,65 @@ ns_conf = api.namespace(
     description='Operations pertaining to the covid topic. Only the GET covid/uscounties endpoints need to be visited as they are accessed only by AWS Lambda functions, or already exist as Lambda functions themselves. The ones that already exist as Lambda functions will eventually be deleted as they are superfluous.')
 
 
-@ns_conf.route("/summary")
-class SummaryPull(Resource):
-    def post(self):
-        '''This endpoint pulls data from covid/summary API into database.
-        Accessible through API Gateway and uses CloudWatch to run once a day.
-        Defunct (AWS Lambda Function).'''
+# @ns_conf.route("/summary")
+# class SummaryPull(Resource):
+#     def post(self):
+#         '''This endpoint pulls data from covid/summary API into database.
+#         Accessible through API Gateway and uses CloudWatch to run once a day.
+#         Defunct (AWS Lambda Function).'''
+#
+#         summary_data = "https://api.covid19api.com/summary"
+#         # Request the data
+#         response = requests.get(summary_data)
+#         nested_dict = response.json()
+#
+#         # Just get country dictionary
+#         record_list = nested_dict['Countries']
+#
+#         for record in record_list:
+#
+#             # Get existing record from the db
+#             db_record = Summary.query.get(record['Country']) or Summary(country=record['Country'])
+#
+#             # Update record's # of confirmed as well as the date
+#             db_record.totalconfirmed = record['TotalConfirmed']
+#             db_record.date = record['Date']
+#
+#             # Add the record to the session
+#             db.session.add(db_record)
+#
+#         # Commit changes
+#         db.session.commit()
+#
+#         # Return statement of verification
+#         return {
+#             'statusCode': 200,
+#             'headers': {'Content-Type': 'application/json'},
+#             'body': json.dumps("Data for bubble vis refreshed!")
+#         }
+#
+#     def get(self):
+#         '''Returns all existing data from the 'summary' table in the database.
+#         Defunct (AWS Lambda package).'''
+#
+#         # Return all data
+#         query = """select * from summary"""
+#         rows = db.engine.execute(query)
+#
+#         # Create the schema for front end
+#         record_list = [
+#             {
+#                 'country': row[0],
+#                 'totalconfirmed': row[1]
+#             } for row in rows
+#         ]
+#
+#         return jsonify(record_list)
 
-        summary_data = "https://api.covid19api.com/summary"
-        # Request the data
-        response = requests.get(summary_data)
-        nested_dict = response.json()
 
-        # Just get country dictionary
-        record_list = nested_dict['Countries']
-
-        for record in record_list:
-
-            # Get existing record from the db
-            db_record = Summary.query.get(record['Country']) or Summary(country=record['Country'])
-
-            # Update record's # of confirmed as well as the date
-            db_record.totalconfirmed = record['TotalConfirmed']
-            db_record.date = record['Date']
-
-            # Add the record to the session
-            db.session.add(db_record)
-
-        # Commit changes
-        db.session.commit()
-
-        # Return statement of verification
-        return {
-            'statusCode': 200,
-            'headers': {'Content-Type': 'application/json'},
-            'body': json.dumps("Data for bubble vis refreshed!")
-        }
-
-    def get(self):
-        '''Returns all existing data from the 'summary' table in the database.
-        Defunct (AWS Lambda package).'''
-
-        # Return all data
-        query = """select * from summary"""
-        rows = db.engine.execute(query)
-
-        # Create the schema for front end
-        record_list = [
-            {
-                'country': row[0],
-                'totalconfirmed': row[1]
-            } for row in rows
-        ]
-
-        return jsonify(record_list)
-
-
-@ns_conf.route("/uscounties")
+@ns_conf.route("/uscounties/add")
 class USCountiesPull(Resource):
-    def post(self):
+    def get(self):
         '''Parses new data from the covid/live API into the AWS
         RDS PostgreSQL. An AWS Lambda function calls this endpoint each day.'''
 
@@ -125,6 +125,9 @@ class USCountiesPull(Resource):
             'body': json.dumps("Data for heatmap refreshed!")
         }
 
+
+@ns_conf.route("/uscounties/query")
+class USCountiesPull(Resource):
     def get(self):
         '''Filters the data from the 'uscounties' table and returns json'''
 
@@ -154,7 +157,7 @@ class USCountiesPull(Resource):
         return jsonify(records_dict)
 
 
-@ns_conf.route("/covidall/update")
+@ns_conf.route("/covidall/add")
 class CovidAllPull(Resource):
     def get(self):
         '''Parses new data from the covid/all API into the AWS RDS PostgreSQL.
@@ -177,9 +180,9 @@ class CovidAllPull(Resource):
 
             # format it to match todays_date
             record['Date'] = date(dt.year, dt.month, dt.day)
-
-            # if record['Date'] == todays_date:
-            if record['Date'] == todays_date:
+        return todays_date
+           # if record['Date'] == todays_date:
+           if record['Date'] == todays_date:
 
                 # Take in a json string and creates a new record for it
                 new_record = CovidAll(
@@ -202,8 +205,8 @@ class CovidAllPull(Resource):
             else:
                 pass
 
-        # Commit all records to database
-        db.session.commit()
+            # Commit all records to database
+            db.session.commit()
 
         # Return statement of verification
         return {
@@ -213,36 +216,36 @@ class CovidAllPull(Resource):
         }
 
 
-@ns_conf.route("/covidall/query")
-class CovidAllPull(Resource):
-    def get(self):
-        '''Filters and returns data from the 'covidall' table in the database
-        for the racechart visual. Defunct (AWS API Gateway & AWS Lambda).'''
-
-        query = '''
-        SELECT ranked_countries.country,
-        to_char(ranked_countries.date, 'MM-dd-yy'),
-        sum(ranked_countries.deaths) AS deaths
-        FROM(
-        SELECT covidall.country, covidall.date, covidall.deaths, rank()
-        OVER(PARTITION BY covidall.date ORDER BY covidall.deaths DESC)
-        FROM covidall WHERE province='' OR country='China') ranked_countries
-        WHERE rank <= 20 AND deaths > 0
-        GROUP BY ranked_countries.date, ranked_countries.country
-        ORDER BY ranked_countries.date'''
-        # ¯\_(ツ)_/¯
-
-        rows = db.engine.execute(query)
-
-        # Just post data necessary for the visualization
-        covidall_dict = [
-            {
-                "country": row[0],
-                "date": datetime.strptime(row[1], '%m-%d-%y').strftime('%Y/%m/%d'),
-                "deaths": row[2]
-            } for row in rows
-        ]
-        return jsonify(covidall_dict)
+# @ns_conf.route("/covidall/query")
+# class CovidAllPull(Resource):
+#     def get(self):
+#         '''Filters and returns data from the 'covidall' table in the database
+#         for the racechart visual. Defunct (AWS API Gateway & AWS Lambda).'''
+#
+#         query = '''
+#         SELECT ranked_countries.country,
+#         to_char(ranked_countries.date, 'MM-dd-yy'),
+#         sum(ranked_countries.deaths) AS deaths
+#         FROM(
+#         SELECT covidall.country, covidall.date, covidall.deaths, rank()
+#         OVER(PARTITION BY covidall.date ORDER BY covidall.deaths DESC)
+#         FROM covidall WHERE province='' OR country='China') ranked_countries
+#         WHERE rank <= 20 AND deaths > 0
+#         GROUP BY ranked_countries.date, ranked_countries.country
+#         ORDER BY ranked_countries.date'''
+#         # ¯\_(ツ)_/¯
+#
+#         rows = db.engine.execute(query)
+#
+#         # Just post data necessary for the visualization
+#         covidall_dict = [
+#             {
+#                 "country": row[0],
+#                 "date": datetime.strptime(row[1], '%m-%d-%y').strftime('%Y/%m/%d'),
+#                 "deaths": row[2]
+#             } for row in rows
+#         ]
+#         return jsonify(covidall_dict)
 
 
 if __name__ == "__main__":
