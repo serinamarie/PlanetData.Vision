@@ -30,6 +30,7 @@ https://www.notion.so/PlanetData-World-previously-Earth-Dashboard-f2164d30ed994e
 
 ### Project Repos:
 [Front-End](https://github.com/Lambda-School-Labs/earth-dashboard-fe)
+
 [Data Science](https://github.com/Lambda-School-Labs/earth-dashboard-ds)
 
 ##
