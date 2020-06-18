@@ -36,7 +36,7 @@ A website to teach middle school students about the Earth and data visualization
 
 Visualizations: **Python**, **Plotly**, **Matplotlib**, **Mapbox**, **D3**
 
-Backend: **Flask**, **AWS Lambda**, **AWS API Gateway**, **AWS CloudWatch**, **AWS RDS**, **Heroku**, **PostgreSQL**
+Backend: **Flask**, **AWS Lambda**, **AWS API Gateway**, **AWS CloudWatch**, **AWS RDS PostgreSQL**, **Heroku**
 
 ##
 
