@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_restplus import Api
 from flask_compress import Compress
+from flask_cors import CORS, cross_origin
 
 # Instantiate relevant classes
 db = SQLAlchemy()
@@ -16,6 +17,7 @@ def create_app():
     # Initialize app
     app = Flask(__name__, instance_relative_config=False)
     app.config.from_object('config.Config')
+    CORS(app)
 
     # Initialize SQLAlchemy
     db.init_app(app)

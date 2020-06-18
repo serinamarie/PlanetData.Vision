@@ -23,6 +23,7 @@ Flask-SQLAlchemy = "==2.4.1"
 Flask-Testing = "==0.8.0"
 marshmallow-sqlalchemy = "*"
 flask-compress = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.7"
