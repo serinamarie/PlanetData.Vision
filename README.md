@@ -29,14 +29,14 @@ Project Repos:
 
 [Product Release Canvas](https://www.notion.so/8bd1fb80a11447f9b3a2a4572bda7a33?v=bc7e5838ad224b978d81fc5946c29650)
 
-An educational dashboard to teach middle school students the fundamentals of data visualization through environmental lessons.
+A website to teach middle school students about the Earth and data visualization through interactive lessons.
 
 
 #### Tech Stack
 
-Visualizations: Python, Plotly, Matplotlib, Mapbox, D3
+Visualizations: **Python**, **Plotly**, **Matplotlib**, **Mapbox**, **D3**
 
-Backend: Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, AWS RDS, Heroku, PostgreSQL
+Backend: **Flask**, **AWS Lambda**, **AWS API Gateway**, **AWS CloudWatch**, **AWS RDS**, **Heroku**, **PostgreSQL**
 
 ##
 
@@ -62,7 +62,7 @@ Backend: Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, AWS RDS, Heroku, Po
 - [Symbiosis](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/symbiosis.csv)
 
 #### Global Warming
-- [Mole Fraction CO<sub>2</sub>](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/mol_fraction_co2.ipynb)
+- [CO<sub>2</sub> in the Atmosphere](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/mol_fraction_co2.ipynb)
 - [Aggregated Climate Data](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/aggregated_climate_data.ipynb)
 
 ### Database Migration
