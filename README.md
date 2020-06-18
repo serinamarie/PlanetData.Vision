@@ -81,5 +81,5 @@ Predictive Modeling: **Facebook Prophet**, **Random Forest Regressor**
 ##
 
 ### Architecture
-<img src="https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/feature/updating-notebooks---CV/Notebooks/Images/DSArchitecture.png?raw=true" width = "600" />
+<img src="https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Images/DSArchitecture.png" width = "600" />
 
