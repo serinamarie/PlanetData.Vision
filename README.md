@@ -3,7 +3,7 @@
 
 ## PlanetData.World
 
-<p align="center">A [website](https://planetdata.world) to teach middle school students about the Earth and data visualization via interactive lessons.</p>
+<p align="center">A <a href="https://planetdata.world">website</a> to teach middle school students about the Earth and data visualization via interactive lessons.</p>
 
 ### DS Contributors:
 
