@@ -95,11 +95,11 @@ Predictive Modeling: **Facebook Prophet**, **Random Forest Regressor**
 
 https://4eo1w5jvy0.execute-api.us-east-1.amazonaws.com/default/summary_db_query
 
-### Description
+#### Description
 
 Returns the name and total confirmed cases for each country.
 
-### Schema
+#### Schema
 
 ```typescript
 {
@@ -113,7 +113,7 @@ Returns the name and total confirmed cases for each country.
 
 https://4eo1w5jvy0.execute-api.us-east-1.amazonaws.com/default/summary_db_add
 
-### Description
+#### Description
 
 Pulls data from covid/summary API and inserts it into the AWS RDS PostgreSQL. Triggered once a day by a AWS CloudWatch rule.
 
@@ -123,11 +123,11 @@ Pulls data from covid/summary API and inserts it into the AWS RDS PostgreSQL. Tr
 
 https://ds-backend-planetdata.herokuapp.com/covid/uscounties/query
 
-### Description
+#### Description
 
 Returns the latitude, longitude, number of confirmed cases, and date for each day and a set of all dates.
 
-### Schema
+#### Schema
 
 ```typescript
 {
@@ -147,11 +147,11 @@ Returns the latitude, longitude, number of confirmed cases, and date for each da
 
 https://4eo1w5jvy0.execute-api.us-east-1.amazonaws.com/default/covidall_db_query
 
-### Description
+#### Description
 
 Returns the country, date, and cumulative number of deaths from COVID-19.
 
-### Schema
+#### Schema
 
 ```typescript
 {
@@ -161,17 +161,17 @@ Returns the country, date, and cumulative number of deaths from COVID-19.
 }
 ```
 
-## Air Quality
+### Air Quality Line Graph
 
-### URL
+#### URL
 
 https://4eo1w5jvy0.execute-api.us-east-1.amazonaws.com/default/airquality_query
 
-### Description
+#### Description
 
 Returns a set of all dates, the date and daily dean PM2.5 concentration for each day, and the date and number of cases for each day. Data is only used for dates shared between both the cases and air quality data.
 
-### Schema
+#### Schema
 
 ```typescript
 {
@@ -187,17 +187,17 @@ Returns a set of all dates, the date and daily dean PM2.5 concentration for each
 }
 ```
 
-## Deforestation
+### Deforestation
 
-### URL
+#### URL
 
  https://4eo1w5jvy0.execute-api.us-east-1.amazonaws.com/default/deforestation_function
 
-### Description
+#### Description
 
 Returns the country code, year, agricultural land in sq. km, electrical power consumption, GDP per capita growth, livestock production index, number of ores and metals export, urban population, crop production index, food production index and forest area for each country.
 
-### Schema
+#### Schema
 
 ```typescript
 {
@@ -216,17 +216,17 @@ Returns the country code, year, agricultural land in sq. km, electrical power co
 }
 ```
 
-## Globe - Carbon Footprint
+### Globe - Carbon Footprint
 
-### URL
+#### URL
 
 https://4eo1w5jvy0.execute-api.us-east-1.amazonaws.com/default/globe_footprint
 
-### Description
+#### Description
 
 Returns the city, latitutde of the city, longitude of the city, and carbon footprint of the city.
 
-### Schema
+#### Schema
 
 ```typescript
 [
@@ -234,17 +234,17 @@ Returns the city, latitutde of the city, longitude of the city, and carbon footp
 ]
 ```
 
-## Ridgeplot (Density Plot)
+### Ridgeplot (Density Plot)
 
-### URL
+#### URL
 
 https://4eo1w5jvy0.execute-api.us-east-1.amazonaws.com/default/migration_density
 
-### Description
+#### Description
 
 Returns number of bird sightings for that species in 1970, 1975, 1981, 1985, 1990, 1998, 2004, 2011, and 2015.
 
-### Schema
+#### Schema
 
 ```typescript
 {
