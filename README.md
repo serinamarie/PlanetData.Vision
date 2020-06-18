@@ -80,7 +80,7 @@ Predictive Modeling: **Facebook Prophet**, **Random Forest Regressor**
 
 ##
 
-## API Documentation
+# API Documentation
 
 ### Architecture
 <img src="https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Images/DSArchitecture.png" width = "600" />
