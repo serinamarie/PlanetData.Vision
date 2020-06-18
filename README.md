@@ -41,7 +41,7 @@ https://www.notion.so/PlanetData-World-previously-Earth-Dashboard-f2164d30ed994e
 
 Visualizations: **Python**, **Plotly**, **D3**, **Mapbox**, **Seaborn**, **Matplotlib**
 
-Backend: **Flask**, **AWS Lambda**, **AWS API Gateway**, **AWS CloudWatch**, **AWS RDS PostgreSQL**, **Heroku**
+Backend: **AWS API Gateway**, **AWS Lambda**, **AWS RDS PostgreSQL**, **Flask**, **Heroku**, **AWS CloudWatch**
 
 Predictive Modeling: **Facebook Prophet**
 
