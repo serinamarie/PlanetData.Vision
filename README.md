@@ -3,11 +3,14 @@
 
 ## PlanetData.World
 
-### Project Overview:
-
 A website to teach middle school students about the Earth and data visualization through interactive lessons.
 
+### Project Overview:
+
 [Website](https://planetdata.world)
+
+[Product Vision Document](
+https://www.notion.so/PlanetData-World-previously-Earth-Dashboard-f2164d30ed994ecab5894212efcc2000)
 
 [Product Release Canvas](https://www.notion.so/8bd1fb80a11447f9b3a2a4572bda7a33?v=bc7e5838ad224b978d81fc5946c29650)
 
