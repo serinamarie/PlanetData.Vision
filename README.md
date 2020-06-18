@@ -39,7 +39,7 @@ https://www.notion.so/PlanetData-World-previously-Earth-Dashboard-f2164d30ed994e
 
 ### Tech Stack:
 
-Visualizations: **Python**, **Plotly**, **Seaborn**, **Matplotlib**, **Mapbox**, **D3**
+Visualizations: **Python**, **Plotly**, **D3**, **Mapbox**, **Seaborn**, **Matplotlib**
 
 Backend: **Flask**, **AWS Lambda**, **AWS API Gateway**, **AWS CloudWatch**, **AWS RDS PostgreSQL**, **Heroku**
 
