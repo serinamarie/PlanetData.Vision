@@ -216,4 +216,40 @@ Returns the country code, year, agricultural land in sq. km, electrical power co
 
 ## Globe - Carbon Footprint
 
+### URL
+
+https://4eo1w5jvy0.execute-api.us-east-1.amazonaws.com/default/globe_footprint
+
+### Description
+
+Returns the city, latitutde of the city, longitude of the city, and carbon footprint of the city.
+
+```typescript
+[
+	[city, lat, lon, magnitude, city, lat, lon, magnitude, city, city, lat, lon, magnitude.. ]
+]
+```
+
 ## Ridgeplot (Density Plot)
+
+### URL
+
+https://4eo1w5jvy0.execute-api.us-east-1.amazonaws.com/default/migration_density
+
+### Description
+
+Returns number of bird sightings for that species in 1970, 1975, 1981, 1985, 1990, 1998, 2004, 2011, and 2015.
+
+```typescript
+{
+"1970": number, 
+"1975": number, 
+"1981": number, 
+"1985": number, 
+"1990": number, 
+"1998": number, 
+"2004": number, 
+"2011": number, 
+"2015": number
+}
+```
