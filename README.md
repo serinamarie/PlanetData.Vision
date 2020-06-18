@@ -19,19 +19,19 @@ A [website](https://planetdata.world) to teach middle school students about the 
 
 ### Project Overview:
 
-[Website](https://planetdata.world)
+- [Website](https://planetdata.world)
 
-[Product Vision Document](
+- [Product Vision Document](
 https://www.notion.so/PlanetData-World-previously-Earth-Dashboard-f2164d30ed994ecab5894212efcc2000)
 
-[Product Release Canvas](https://www.notion.so/8bd1fb80a11447f9b3a2a4572bda7a33?v=bc7e5838ad224b978d81fc5946c29650)
+- [Product Release Canvas](https://www.notion.so/8bd1fb80a11447f9b3a2a4572bda7a33?v=bc7e5838ad224b978d81fc5946c29650)
 
-[Trello Board](https://trello.com/b/5gHETvxv/earth-dashboard)
+- [Trello Board](https://trello.com/b/5gHETvxv/earth-dashboard)
 
 ### Project Repos:
-[Front-End](https://github.com/Lambda-School-Labs/earth-dashboard-fe)
+- [Front-End](https://github.com/Lambda-School-Labs/earth-dashboard-fe)
 
-[Data Science](https://github.com/Lambda-School-Labs/earth-dashboard-ds)
+- [Data Science](https://github.com/Lambda-School-Labs/earth-dashboard-ds)
 
 ##
 
@@ -67,6 +67,8 @@ Backend: **Flask**, **AWS Lambda**, **AWS API Gateway**, **AWS CloudWatch**, **A
 #### Global Warming
 - [CO<sub>2</sub> in the Atmosphere](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/mol_fraction_co2.ipynb)
 - [Aggregated Climate Data](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/aggregated_climate_data.ipynb)
+
+##
 
 ### Database Migration
 - [Data Migration](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Web_API_to_DB_Migration.ipynb)
