@@ -89,7 +89,7 @@ Predictive Modeling: **Facebook Prophet**, **Random Forest Regressor**
 
 ## Endpoints
 
-### Bubbles - JSON
+### COVID-19 Bubbles - JSON
 
 #### URL
 
@@ -107,7 +107,7 @@ Returns the name and total confirmed cases for each country.
 	"totalConfirmed": number
 }
 ```
-### Bubbles - Refresh Data
+### COVID-19 Bubbles - Refresh Data
 
 #### URL
 
@@ -117,7 +117,7 @@ https://4eo1w5jvy0.execute-api.us-east-1.amazonaws.com/default/summary_db_add
 
 Pulls data from covid/summary API and inserts it into the AWS RDS PostgreSQL. Triggered once a day by a AWS CloudWatch rule.
 
-### Heatmap
+### COVID-19 Heatmap
 
 #### URL
 
@@ -141,7 +141,7 @@ Returns the latitude, longitude, number of confirmed cases, and date for each da
 }
 ```
 
-### Racing Chart
+### COVID-19 Racing Chart
 
 #### URL
 
@@ -187,7 +187,7 @@ Returns a set of all dates, the date and daily dean PM2.5 concentration for each
 }
 ```
 
-### Deforestation
+### Deforestation Prediction Trends
 
 #### URL
 
@@ -234,7 +234,7 @@ Returns the city, latitutde of the city, longitude of the city, and carbon footp
 ]
 ```
 
-### Ridgeplot (Density Plot)
+### Bird Migration - Ridgeplot (Density Plot)
 
 #### URL
 
