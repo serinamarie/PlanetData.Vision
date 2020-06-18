@@ -25,12 +25,11 @@ Project Repos:
 
 ### Project Overview
 
+<center>**A website to teach middle school students about the Earth and data visualization through interactive lessons.**</center>
+
 [Trello Board](https://trello.com/b/5gHETvxv/earth-dashboard)
 
 [Product Release Canvas](https://www.notion.so/8bd1fb80a11447f9b3a2a4572bda7a33?v=bc7e5838ad224b978d81fc5946c29650)
-
-A website to teach middle school students about the Earth and data visualization through interactive lessons.
-
 
 #### Tech Stack
 
