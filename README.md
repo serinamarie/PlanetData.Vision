@@ -33,7 +33,7 @@ A website to teach middle school students about the Earth and data visualization
 
 ##
 
-#### Tech Stack:
+### Tech Stack:
 
 Visualizations: **Python**, **Plotly**, **Matplotlib**, **Mapbox**, **D3**
 
