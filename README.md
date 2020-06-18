@@ -27,7 +27,7 @@ Project Repos:
 
 [Trello Board](https://trello.com/b/5gHETvxv/earth-dashboard)
 
-[Product Canvas](https://www.notion.so/8bd1fb80a11447f9b3a2a4572bda7a33?v=bc7e5838ad224b978d81fc5946c29650)
+[Product Release Canvas](https://www.notion.so/8bd1fb80a11447f9b3a2a4572bda7a33?v=bc7e5838ad224b978d81fc5946c29650)
 
 An educational dashboard to teach middle school students the fundamentals of data visualization through environmental lessons.
 
@@ -42,26 +42,28 @@ Backend: Flask, AWS Lambda, AWS API Gateway, AWS CloudWatch, AWS RDS, Heroku, Po
 
 ### Data Sources
 
+#### Landing Page Globe
+- [Carbon Footprint](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/CarbonFootprint.ipynb)
+- [Charles' Pollution Data](placeholder)
+
 #### COVID-19
-- [Covid Heatmap](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/COVID19API_DataVis2_CV.ipynb)
-- [Covid Race Chart](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/COVID19API_DataVis4_CV.ipynb)
-- [Covid Bubbles Plot](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/FLASK_RC1.2/application/templates/bubbles.html)
-- [Covid Air Pollution Line Graph](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Air_Pollution_During_Quarantine.ipynb)
+- [COVID-19 Heatmap](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/COVID19API_DataVis2_CV.ipynb)
+- [COVID-19 Race Chart](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/COVID19API_DataVis4_CV.ipynb)
+- [COVID-19 Bubbles Plot](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/FLASK_RC1.2/application/templates/bubbles.html)
+- [COVID-19 Air Pollution Line Graph](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Air_Pollution_During_Quarantine.ipynb)
 
 #### Deforestation
 - [Deforestation Data](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationDataWrangle_RC2_CV.ipynb)
 - [Deforestation Model](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationPredictionModel_RC2_CV.ipynb)
-- [Deforestation Line + Bar Graph](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationDataVis_RC2_CV.ipynb)
+- [Deforestation Line & Bar Graph](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/DeforestationDataVis_RC2_CV.ipynb)
 
-#### Bird Migration Patterns
-- text here
-- text here
-- text here
+#### Wildlife
+- [Migratory Bird Patterns](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Migratory_Bird_Patterns.ipynb)
+- [Symbiosis](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/symbiosis.csv)
 
 #### Global Warming
-- text here
-- text here
-- text here
+- [Mole Fraction CO<sub>2</sub>](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/mol_fraction_co2.ipynb)
+- [Aggregated Climate Data](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/aggregated_climate_data.ipynb)
 
 ### Database Migration
 - [Data Migration](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Web_API_to_DB_Migration.ipynb)
