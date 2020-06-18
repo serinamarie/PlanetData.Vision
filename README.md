@@ -85,7 +85,7 @@ Predictive Modeling: **Facebook Prophet**, **Random Forest Regressor**
 ### Architecture
 <img src="https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Images/DSArchitecture.png" width = "600" />
 
-#### Backend deployed mostly on AWS API Gateway and also on [Heroku](https://ds-backend-planetdata.herokuapp.com/) <br>
+#### Backend deployed mostly on AWS API Gateway and also on [Heroku](https://ds-backend-planetdata.herokuapp.com/).<br>
 
 ## Endpoints
 
@@ -97,7 +97,7 @@ https://4eo1w5jvy0.execute-api.us-east-1.amazonaws.com/default/summary_db_query
 
 ### Description
 
-Returns the name and total confirmed cases for each country
+Returns the name and total confirmed cases for each country.
 
 ### Schema
 
