@@ -28,7 +28,7 @@ logger.info("SUCCESS: Connection to RDS Postgres instance succeeded")
 def lambda_handler(event, context):
     '''Parses covid/all API for new data, adds to database.'''
 
-    covidall_post_endpoint = "https://ds-backend-planetdata.herokuapp.com/covid/covidall"
+    covidall_add_endpoint = "https://ds-backend-planetdata.herokuapp.com/covid/covidall/add"
     # Request the data
     response = requests.get(covidall_post_endpoint)
 
