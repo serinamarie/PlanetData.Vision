@@ -200,17 +200,17 @@ Returns the country code, year, agricultural land in sq. km, electrical power co
 ```typescript
 {
 	"Country Name": string, 
-  "Country Code": string, 
-  "Year": number, 
-  "Agricultural land (sq. km)": number, 
-  "Electric power consumption (kWh per capita)": number, 
-  "GDP per capita growth (annual %)": -3.8741031654, 
-  "Livestock production index (2004-2006 = 100)": number, 
-  "Ores and metals exports (% of merchandise exports)": number, 
-  "Urban population": number, 
-  "Crop production index (2004-2006 = 100)": number, 
-  "Food production index (2004-2006 = 100)": number, 
-  "Forest area (% of land area)": number
+  	"Country Code": string, 
+  	"Year": number, 
+  	"Agricultural land (sq. km)": number, 
+  	"Electric power consumption (kWh per capita)": number, 
+  	"GDP per capita growth (annual %)": -3.8741031654, 
+ 	"Livestock production index (2004-2006 = 100)": number, 
+  	"Ores and metals exports (% of merchandise exports)": number, 
+ 	"Urban population": number, 
+  	"Crop production index (2004-2006 = 100)": number, 
+  	"Food production index (2004-2006 = 100)": number, 
+  	"Forest area (% of land area)": number
 }
 ```
 
