@@ -237,13 +237,15 @@ Returns the number of bird sightings for that species in 1970, 1975, 1981, 1985,
 ```
 
 ### Environment Variables
-In order to create AWS Lambda functions correctly, the user must set up their own environment variables in each AWS Lambda function.
+In order to re-create the [AWS Lambda functions](https://github.com/Lambda-School-Labs/earth-dashboard-ds/tree/master/AWSLambda) correctly, the user must set up their own environment variables in each AWS Lambda function. 
 
 ```
 RDS_HOST = database url 
 RDS_USERNAME = username 
 RDS_USER_PWD = password
 ```
+
+In addition, create a Dockerfile based on the Amazon Linux image to create the correct Python environment (we used 3.7). Refer to [this article](https://medium.com/@niklongstone/how-to-build-an-aws-lambda-function-with-python-3-7-the-right-way-21888e2edbe8) for help if need be.
 
 ## Heroku Endpoint
 
