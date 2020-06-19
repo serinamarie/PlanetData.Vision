@@ -237,9 +237,7 @@ Returns the number of bird sightings for that species in 1970, 1975, 1981, 1985,
 ```
 
 ### Environment Variables
-In order for the app to function correctly, the user must set up their own environment variables.
-
-create a .env file that includes the following:
+In order to create AWS Lambda functions correctly, the user must set up their own environment variables in each AWS Lambda function.
 
 ```
 RDS_HOST = database url 
@@ -274,7 +272,7 @@ Returns the latitude, longitude, number of confirmed cases, and date for each da
 ```
 
 ### Environment Variables
-In order for the app to function correctly, the user must set up their own environment variables.
+In order for the Flask app to function correctly, the user must set up their own environment variables.
 
 create a .env file that includes the following:
 
