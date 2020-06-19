@@ -73,10 +73,6 @@ Predictive Modeling: **Facebook Prophet**, **Random Forest Regressor**
 - [CO<sub>2</sub> in the Atmosphere](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/mol_fraction_co2.ipynb)
 - [Aggregated Climate Data](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/aggregated_climate_data.ipynb)
 
-##
-
-## Initial Database Migration
-- [Data Migration](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Web_API_to_DB_Migration.ipynb)
 
 ##
 
@@ -288,3 +284,7 @@ SQLALCHEMY_ECHO=True
 FLASK_APP=application.py
 FLASK_ENV=development
 ```
+
+
+## Initial Database Migration
+- [Data Migration Notebook](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Web_API_to_DB_Migration.ipynb)
