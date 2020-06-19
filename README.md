@@ -7,7 +7,7 @@
 <b><p align="left">A <a href="https://planetdata.world">website</a> that teaches middle school students about the Earth and data visualization via interactive lessons.</p></b>
 
 
-## DS Contributors:
+## DS Contributors
 
 |Charles Vanchieri|Serina Grill|Sean Hobin|      
 | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
@@ -19,7 +19,7 @@
 ![Python](https://img.shields.io/static/v1?label=Py&message=Python3.7&color=Blue)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-## Project Overview:
+## Project Overview
 
 - [Website](https://planetdata.world)
 
@@ -30,14 +30,14 @@ https://www.notion.so/PlanetData-World-previously-Earth-Dashboard-f2164d30ed994e
 
 - [Trello Board](https://trello.com/b/5gHETvxv/earth-dashboard)
 
-## Project Repos:
+## Project Repositories
 - [Front-End](https://github.com/Lambda-School-Labs/earth-dashboard-fe)
 
 - [Data Science](https://github.com/Lambda-School-Labs/earth-dashboard-ds)
 
 ##
 
-## Tech Stack:
+## Tech Stack
 
 Visualizations: **Python**, **Plotly**, **D3**, **Mapbox**, **Seaborn**, **Matplotlib**
 
@@ -47,7 +47,7 @@ Predictive Modeling: **Facebook Prophet**, **Random Forest Regressor**
 
 ##
 
-## Data Sources:
+## Data Sources
 
 ### Landing Page Globe
 - [Carbon Footprint](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/CarbonFootprint.ipynb)
