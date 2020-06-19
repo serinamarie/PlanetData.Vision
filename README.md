@@ -89,7 +89,7 @@ Predictive Modeling: **Facebook Prophet**, **Random Forest Regressor**
 
 ## Endpoints
 
-### COVID-19 Bubbles - JSON
+### COVID-19 Bubbles Visualization
 
 #### URL
 
