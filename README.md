@@ -87,7 +87,7 @@ Predictive Modeling: **Facebook Prophet**, **Random Forest Regressor**
 
 #### Backend deployed serverlessly through AWS API Gateway and AWS Lambda, with a single endpoint existing on a [Heroku](https://ds-backend-planetdata.herokuapp.com/) server.<br>
 
-## Endpoints
+## AWS API Gateway Endpoints
 
 ### COVID-19 Bubbles Visualization
 
@@ -116,30 +116,6 @@ https://4eo1w5jvy0.execute-api.us-east-1.amazonaws.com/default/summary_db_add
 #### Description
 
 Pulls data from covid/summary API and inserts it into the AWS RDS PostgreSQL. Triggered once a day by a AWS CloudWatch rule.
-
-### COVID-19 Heatmap
-
-#### URL
-
-https://ds-backend-planetdata.herokuapp.com/covid/uscounties/query
-
-#### Description
-
-Returns the latitude, longitude, number of confirmed cases, and date for each day and a set of all dates.
-
-#### Schema
-
-```typescript
-{
-	"cases": {
-		"lat": number,
-		"lon": number,
-		"cases": number,
-		"date": string ("MM/dd/yy")
-		},
-	"dates": string ("MM/dd/yy")
-}
-```
 
 ### COVID-19 Racing Chart
 
@@ -258,4 +234,57 @@ Returns the number of bird sightings for that species in 1970, 1975, 1981, 1985,
 	"2011": number, 
 	"2015": number
 }
+```
+
+### Environment Variables
+In order for the app to function correctly, the user must set up their own environment variables.
+
+create a .env file that includes the following:
+
+```
+RDS_HOST = database url 
+RDS_USERNAME = username 
+RDS_USER_PWD = password
+```
+
+## Heroku Endpoint
+
+### COVID-19 Heatmap
+
+#### URL
+
+https://ds-backend-planetdata.herokuapp.com/covid/uscounties/query
+
+#### Description
+
+Returns the latitude, longitude, number of confirmed cases, and date for each day and a set of all dates.
+
+#### Schema
+
+```typescript
+{
+	"cases": {
+		"lat": number,
+		"lon": number,
+		"cases": number,
+		"date": string ("MM/dd/yy")
+		},
+	"dates": string ("MM/dd/yy")
+}
+```
+
+### Environment Variables
+In order for the app to function correctly, the user must set up their own environment variables.
+
+create a .env file that includes the following:
+
+```
+SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://username:password@databaseurl'
+TESTING=True
+DEBUG=True
+SECRETKEY= secret key
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+SQLALCHEMY_ECHO=True
+FLASK_APP=application.py
+FLASK_ENV=development
 ```
