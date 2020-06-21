@@ -3,7 +3,7 @@ from . import db, ma
 
 
 class CovidAll(db.Model):
-    '''Attributes of the '/all' Covid API class for racechart vis'''
+    '''Attributes of the '/all' Covid API class for racechart visualization'''
     __tablename__ = 'covidall'
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
