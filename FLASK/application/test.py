@@ -1,5 +1,5 @@
-# run tests: python -m application.test
-# Hoping to implement pytest stuff soon 5/20/20
+# Run tests: python -m application.test from FLASK directory or
+# pytest test.py in application directory
 from flask_testing import TestCase
 
 try:
@@ -9,25 +9,6 @@ except Exception as e:
     print("Some Modules are missing {} ".format(e))
 
 
-class BubbleTest(unittest.TestCase):
-    '''Testing the summary table used for the bubbles visualization'''
-
-    def test_index(self):
-        # Check for response 200
-        app = create_app()
-        tester = app.test_client(self)
-        response = tester.get("/covid/summary")
-        statuscode = response.status_code
-        self.assertEqual(statuscode, 200)
-
-    def test_index_content(self):
-        # Check if content return is application/json
-        app = create_app()
-        tester = app.test_client(self)
-        response = tester.get("/covid/summary")
-        self.assertEqual(response.content_type, 'text/html')
-
-
 class HeatmapTest(unittest.TestCase):
     '''Testing the uscounties table used for the heatmap visualization'''
 
@@ -35,8 +16,8 @@ class HeatmapTest(unittest.TestCase):
         # Check if content return is application/json
         app = create_app()
         tester = app.test_client(self)
-        response = tester.get("/covid/uscounties")
-        self.assertEqual(response.content_type, 'text/html')
+        response = tester.get("/covid/uscounties/query")
+        self.assertEqual(response.content_type, 'application/json')
 
 
 class RacechartTest(unittest.TestCase):
@@ -46,7 +27,7 @@ class RacechartTest(unittest.TestCase):
         # Check if content return is application/json
         app = create_app()
         tester = app.test_client(self)
-        response = tester.get("/covid/covidall")
+        response = tester.get("/covid/covidall/add")
         self.assertEqual(response.content_type, 'text/html')
 
 

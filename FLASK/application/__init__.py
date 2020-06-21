@@ -5,6 +5,10 @@ from flask_restplus import Api
 from flask_compress import Compress
 from flask_cors import CORS, cross_origin
 
+'''flask-marshmallow is longer used in this app although was left intact to 
+# easily implement later on. It took a little research initially to learn how
+# use marshmallow on sqlalchemy in a wsgi.py app)'''
+
 # Instantiate relevant classes
 db = SQLAlchemy()
 ma = Marshmallow()
