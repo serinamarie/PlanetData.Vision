@@ -85,11 +85,11 @@ Predictive Modeling: **Facebook Prophet**, **Random Forest Regressor**
 ### Architecture
 <img src="https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Images/DSArchitecture.png" width = "600" />
 
-#### Backend deployed serverlessly through AWS API Gateway and AWS Lambda, with a single endpoint existing on a [Heroku](https://ds-backend-planetdata.herokuapp.com/) server.<br>
+#### Backend deployed serverlessly through AWS API Gateway and AWS Lambda, with two endpoints existing on a [Heroku](https://ds-backend-planetdata.herokuapp.com/) server.<br>
 
 ## AWS API Gateway Endpoints
 
-### COVID-19 Bubbles Visualization
+### COVID-19 Global Cases Bubbles Visualization Data (AWS API Gateway and AWS Lambda)
 
 #### URL
 
@@ -107,7 +107,7 @@ Returns the name and total confirmed cases for each country.
 	"totalConfirmed": number
 }
 ```
-### COVID-19 Bubbles - Refresh Data
+### COVID-19 Global Cases Bubbles Visualization - Refresh Data (AWS Lambda and AWS Cloudwatch)
 
 #### URL
 
@@ -117,7 +117,7 @@ https://4eo1w5jvy0.execute-api.us-east-1.amazonaws.com/default/summary_db_add
 
 Pulls data from covid/summary API and inserts it into the AWS RDS PostgreSQL. Triggered once a day by a AWS CloudWatch rule.
 
-### COVID-19 Racing Chart
+### COVID-19 Global Fatalities Racing Chart Data (AWS API Gateway and AWS Lambda)
 
 #### URL
 
@@ -137,7 +137,7 @@ Returns the country, date, and cumulative number of deaths from COVID-19.
 }
 ```
 
-### Air Quality Line Graph
+### Air Quality Line Graph Data (AWS API Gateway and AWS Lambda)
 
 #### URL
 
@@ -163,7 +163,7 @@ Returns a set of all dates, the date and daily dean PM2.5 concentration for each
 }
 ```
 
-### Deforestation Prediction Trends
+### Deforestation Prediction Trends Line Graph Data (AWS API Gateway and AWS Lambda)
 
 #### URL
 
@@ -182,7 +182,7 @@ Returns the country code, year, agricultural land in sq. km, electrical power co
   	"Year": number, 
   	"Agricultural land (sq. km)": number, 
   	"Electric power consumption (kWh per capita)": number, 
-  	"GDP per capita growth (annual %)": -3.8741031654, 
+  	"GDP per capita growth (annual %)": number, 
  	"Livestock production index (2004-2006 = 100)": number, 
   	"Ores and metals exports (% of merchandise exports)": number, 
  	"Urban population": number, 
@@ -192,7 +192,7 @@ Returns the country code, year, agricultural land in sq. km, electrical power co
 }
 ```
 
-### Globe - Carbon Footprint
+### Globe - Carbon Footprint Data (AWS API Gateway and AWS Lambda)
 
 #### URL
 
@@ -210,7 +210,7 @@ Returns the name, latitude, longitude, and carbon footprint of the city.
 ]
 ```
 
-### Bird Migration - Ridgeplot (Density Plot)
+### Bird Migration Ridgeplot Data (AWS API Gateway and AWS Lambda)
 
 #### URL
 
@@ -247,9 +247,9 @@ RDS_USER_PWD = password
 
 In addition, create a Dockerfile based on the Amazon Linux image to create the correct Python environment (we used 3.7). Refer to [this article](https://medium.com/@niklongstone/how-to-build-an-aws-lambda-function-with-python-3-7-the-right-way-21888e2edbe8) for help if need be.
 
-## Heroku Endpoint
+## Heroku Endpoints
 
-### COVID-19 Heatmap
+### COVID-19 US Cases Heatmap Data
 
 #### URL
 
@@ -272,6 +272,16 @@ Returns the latitude, longitude, number of confirmed cases, and date for each da
 	"dates": string ("MM/dd/yy")
 }
 ```
+### COVID-19 Global Fatalities Racing Chart - Refresh Data (Heroku, AWS Lambda and AWS Cloudwatch)
+
+#### URL
+
+https://ds-backend-planetdata.herokuapp.com//covid/covidall/add
+
+#### Description
+
+Pulls data from covid/all API and inserts it into the AWS RDS PostgreSQL. Triggered once a day by a AWS CloudWatch rule. No endpoint provided so as to not to create duplicate records in the database.
+
 
 ### Environment Variables
 In order for the Flask app to function correctly, the user must set up their own environment variables.
