@@ -75,35 +75,67 @@ class CovidAllPull(Resource):
 
             if date_record == yesterdays_date:
 
-                # Take in a json string and creates a new record for it
-                new_record = CovidAll(
-                    country=record['Country'],
-                    countrycode=record['CountryCode'],
-                    province=record['Province'],
-                    city=record['City'],
-                    citycode=record['CityCode'],
-                    lat=record['Lat'],
-                    lon=record['Lon'],
-                    confirmed=record['Confirmed'],
-                    deaths=record['Deaths'],
-                    recovered=record['Recovered'],
-                    active=record['Active'],
-                    date=record['Date']
-                )
+                if record['Country'] == 'United States of America':
+                    # Check is US record exists - US requires robust filtering
+                    # including citycode
+                    if CovidAll.query.filter_by(citycode=record['CityCode'], date=record['Date']).first() is not None:
+                        pass
+                    else:
+                        # Take in a json string and creates a new record for it
+                        new_record = CovidAll(
+                            country=record['Country'],
+                            countrycode=record['CountryCode'],
+                            province=record['Province'],
+                            city=record['City'],
+                            citycode=record['CityCode'],
+                            lat=record['Lat'],
+                            lon=record['Lon'],
+                            confirmed=record['Confirmed'],
+                            deaths=record['Deaths'],
+                            recovered=record['Recovered'],
+                            active=record['Active'],
+                            date=record['Date']
+                        )
 
-                # Add record to database
-                db.session.add(new_record)
-            else:
-                pass
+                        # Add record to database
+                        db.session.add(new_record)
 
-            # Commit all records to database
-            db.session.commit()
+                    # Commit all records to database
+                    db.session.commit()
 
-        # Return statement of verification
+                else:
+                    # if country not US, no need for robust filtering
+
+                        # Check if record exists already
+                    if CovidAll.query.filter_by(country=record['Country'], deaths=record['Deaths'], date=record['Date']).first() is not None:
+                        pass
+                    else:
+
+                        # Take in a json string and creates a new record for it
+                        new_record = CovidAll(
+                            country=record['Country'],
+                            countrycode=record['CountryCode'],
+                            province=record['Province'],
+                            city=record['City'],
+                            citycode=record['CityCode'],
+                            lat=record['Lat'],
+                            lon=record['Lon'],
+                            confirmed=record['Confirmed'],
+                            deaths=record['Deaths'],
+                            recovered=record['Recovered'],
+                            active=record['Active'],
+                            date=record['Date']
+                        )
+
+                        # Add record to database
+                        db.session.add(new_record)
+
+                    # Commit all records to database
+                    db.session.commit()
+
+            # Return statement of verification
         return {
-            'statusCode': 200,
-            'headers': {'Content-Type': 'application/json'},
-            'body': json.dumps("Data for racechart refreshed!")
+            'statusCode': 200
         }
 
 
