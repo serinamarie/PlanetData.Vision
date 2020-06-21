@@ -31,7 +31,9 @@ def create_app():
         # Commit all updates to database
         db.session.commit()
 
-        # Initialize marshmallow
+        # Initialize marshmallow (no longer used in this app although left
+        # intact to easily use because it wasn't quite clear initially how
+        # use marshmallow on sqlalchemy in a wsgi.py app)
         ma.init_app(app)
 
         # Initialize compression capabilities

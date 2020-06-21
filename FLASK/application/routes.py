@@ -1,16 +1,12 @@
 from .models import *
 import requests
-from flask import Flask, render_template, jsonify
+from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask import current_app as app
 from flask_restplus import Api, Resource
-import requests
 from datetime import datetime, timedelta, date
 import json
-from math import ceil
 import psycopg2
-from sqlalchemy import text
-from flask import render_template
 
 api = Api(app)
 ns_conf = api.namespace(
