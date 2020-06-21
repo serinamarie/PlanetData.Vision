@@ -4,6 +4,10 @@ from flask_marshmallow import Marshmallow
 from flask_restplus import Api
 from flask_compress import Compress
 
+'''flask-marshmallow is longer used in this app although was left intact to 
+# easily implement later on. It took a little research initially to learn how
+# use marshmallow on sqlalchemy in a wsgi.py app)'''
+
 # Instantiate relevant classes
 db = SQLAlchemy()
 ma = Marshmallow()
@@ -31,9 +35,7 @@ def create_app():
         # Commit all updates to database
         db.session.commit()
 
-        # Initialize marshmallow (no longer used in this app although left
-        # intact to easily use because it wasn't quite clear initially how
-        # use marshmallow on sqlalchemy in a wsgi.py app)
+        # Initialize marshmallow
         ma.init_app(app)
 
         # Initialize compression capabilities
