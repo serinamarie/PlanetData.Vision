@@ -280,7 +280,7 @@ https://ds-backend-planetdata.herokuapp.com//covid/covidall/add
 
 #### Description
 
-Pulls data from covid/all API and inserts it into the AWS RDS PostgreSQL. Triggered once a day by a AWS CloudWatch rule. No endpoint provided so as to not to create duplicate records in the database.
+Pulls data from covid/all API and inserts it into the AWS RDS PostgreSQL. Triggered once a day by a AWS CloudWatch rule. No endpoint provided so as to not to create duplicate records in the database. Can take up to 20 mins locally.
 
 
 ### Environment Variables
