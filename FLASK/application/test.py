@@ -1,5 +1,5 @@
-# run tests: python -m application.test
-# Hoping to implement pytest stuff soon 5/20/20
+# Run tests: python -m application.test from FLASK directory or
+# pytest test.py in application directory
 from flask_testing import TestCase
 
 try:
@@ -17,7 +17,7 @@ class HeatmapTest(unittest.TestCase):
         app = create_app()
         tester = app.test_client(self)
         response = tester.get("/covid/uscounties/query")
-        self.assertEqual(response.content_type, 'text/html')
+        self.assertEqual(response.content_type, 'application/json')
 
 
 class RacechartTest(unittest.TestCase):
