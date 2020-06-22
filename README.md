@@ -98,13 +98,13 @@ Or from the FLASK directory of the repository you may type:
 
 These tests simply check the [external APIs](https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest) from which they request a response.
 
-## Deployment
+## Deployment to Heroku
 
-Create a new application on [Heroku](https://dashboard.heroku.com/apps). Next, deployment of this application to Heroku (as a new app) will involve creating a special type of git remote called a Heroku remote (a Heroku-hosted remote). You can set this up in your remote repository on github by first logging in to heroku with 
+Create a new app on [Heroku](https://dashboard.heroku.com/apps). Next, deployment of an application will require creating a special type of git remote called a Heroku remote (a Heroku-hosted remote). You can set this up in your remote repository on github by first logging in to heroku with 
     
     heroku login
 
-then running 
+Once you have logged in, type
     
     heroku git:remote -a whatever_you_named_your_app
 
