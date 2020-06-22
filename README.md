@@ -45,11 +45,74 @@ Services: **AWS**, **Docker**, **Jupyter Notebooks**, **Postman**
 
 Languages: **Python**
 
-Backend: **AWS API Gateway**, **AWS Lambda**, **AWS RDS PostgreSQL**, **Flask**, **Heroku**, **AWS CloudWatch**
+Backend: **AWS API Gateway**, **AWS Lambda**, **AWS RDS PostgreSQL**, **Flask**, **SQLAlchemy**, **Heroku**, **AWS CloudWatch**
 
 Predictive Modeling: **Facebook Prophet**, **Random Forest Regressor**
 
-##
+# Getting Started
+
+This application is primarily serverless. [9 packaged functions](https://github.com/Lambda-School-Labs/earth-dashboard-ds/tree/master/AWSLambda) (AWS Lambda) are located on AWS:
+
+* 7 are accessible via AWS API Gateway. Their [endpoints are listed](#aws-api-gateway-endpoints) in the API Documentation portion of this document. These endpoints return a json string — data that has been formatted, filtered, and wrangled by the DS team (and in cases of dynamic data, placed into the PostgreSQL database). 
+
+* 2 functions, however, update existing tables in the database with new data from various [external API data sources](https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest). Each day a CloudWatch rule triggers these functions, updating the summary and covidall tables to get today’s data into the AWS RDS PostgreSQL. As the [heatmap](https://www.planetdata.world/Pandemic/racing) and [bubbles](https://www.planetdata.world/Pandemic/bubbles) visualizations rely on these tables, so too do the visualizations which update in order to show relevant data. This is all the result of these self-sufficient functions (you’ll notice a third table exists in the database (uscounties); this was originally meant to be a dynamic table but it proved too much for both Lambda functions and Heroku). 
+
+Why is there a Flask app, then, you ask, if this is all serverless? Why am I necessary?
+
+* There are [2 endpoints](#heroku-endpoints) which could not be made serverless (but go ahead and try with Google Cloud functions (untried), for example, or perhaps deploy them elsewhere). These exist in the Flask app, deployed to Heroku. The first endpoint simply returns the data from the uscounties table in the database for web to visualize the [heatmap](planetdata.world/pandemic/heatmap). 
+
+* The second endpoint exists only to be requested by a Lambda function, which in turn is each day triggered by a CloudWatch rule. Why can’t the Lambda function package just call directly to the external API so that we don’t need a Flask API endpoint? Well, Lambda functions are meant to be small and singly-tasked and the [external API](https://api.covid19api.com/country/us/status/confirmed/live) used for the [visualization](planetdata.world/pandemic/heatmap) returns too large a payload for the Lambda function to accept (and is difficult to filter by day). As all 380,000~ data points are necessary for this visualization, things get tricky and ultimately  we realized that static data would better capture the dramatic and exponential first 4 months of the COVID-19 pandemic.
+
+## Prerequisites
+
+    * Flask (preferred: Flask-SQLAlchemy, Flask-RestPlus, Flask-Marshmallow)
+    * SQL, especially for PostgreSQL
+    * Knowledge of how to run an application locally
+    * Heroku or another web server (only if part of the build-on for this project)
+
+## Installing 
+
+Go ahead and clone this repository into the directory of your choosing. You'll need to put the [Heroku Environment Variables](#heroku-environment-variables) into a .env file in your base directory. 
+
+To start up the app locally, navigate to your FLASK directory via the CLI and type
+
+    flask run
+
+When viewing in your browser, it should result in this:
+
+![Image of Swagger API](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Images/swagger_API.png)
+
+Otherwise you may not have the right environment variables.
+
+## Running tests
+
+As there are only 2 endpoints for the Flask API, there are only a few tests and this area could be more robust in a later build.
+
+To run, navigate to the application directory of the repository and type:
+
+    pytest test.py
+    
+Or from the FLASK directory of the repository you may type:
+    
+    python -m application.test 
+
+These tests simply check the external APIs from which they request a response.
+
+## Deployment
+
+Create a new application on [Heroku](https://dashboard.heroku.com/apps). Next, deployment of this application to Heroku (as a new app) will involve creating a special type of git remote called a Heroku remote (a Heroku-hosted remote). You can set this up in your remote repository on github by first logging in to heroku with 
+    
+    heroku login
+
+then running 
+    
+    heroku git:remote -a whatever_you_named_your_app
+
+As the app cannot be run from the root directory of the repository, one MUST use
+    
+    git subtree push --prefix FLASK heroku master
+    
+in order to let Heroku know where the application is, as it will be looking for the Pipfile. If you renamed your Heroku remote to something besides 'heroku,' replace 'heroku' in the command above with whatever you renamed it.
 
 ## Data Sources
 
@@ -236,7 +299,7 @@ Returns the number of bird sightings for that species in 1970, 1975, 1981, 1985,
 }
 ```
 
-### Environment Variables
+### AWS Environment Variables
 In order to re-create the [AWS Lambda functions](https://github.com/Lambda-School-Labs/earth-dashboard-ds/tree/master/AWSLambda) correctly, the user must set up their own environment variables in each AWS Lambda function. 
 
 ```
@@ -283,7 +346,7 @@ https://ds-backend-planetdata.herokuapp.com//covid/covidall/add
 Pulls data from covid/all API and inserts it into the AWS RDS PostgreSQL. Triggered once a day by a AWS CloudWatch rule. No endpoint provided so as to not to create duplicate records in the database. Can take up to 20 mins locally.
 
 
-### Environment Variables
+### Heroku Environment Variables
 In order for the Flask app to function correctly, the user must set up their own environment variables.
 
 create a .env file that includes the following:
