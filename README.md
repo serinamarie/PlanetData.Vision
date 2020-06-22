@@ -53,7 +53,7 @@ Predictive Modeling: **Facebook Prophet**, **Random Forest Regressor**
 
 This application is primarily serverless. [9 packaged functions](https://github.com/Lambda-School-Labs/earth-dashboard-ds/tree/master/AWSLambda) (AWS Lambda) are located on AWS:
 
-* 7 are accessible via AWS API Gateway. Their [endpoints are listed](#aws-api-gateway-endpoints) in the API Documentation portion of this document. These endpoints return a json string — data that has been formatted, filtered, and wrangled by the DS team (and in cases of dynamic data, placed into the PostgreSQL database). 
+* 7 are accessible via AWS API Gateway. These [endpoints](#aws-api-gateway-endpoints) return a json string — data that has been formatted, filtered, and wrangled by the DS team (and in cases of dynamic data, placed into the PostgreSQL database). 
 
 * 2 functions, however, update existing tables in the database with new data from various [external API data sources](https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest). Each day a CloudWatch rule triggers these functions, updating the summary and covidall tables to get today’s data into the AWS RDS PostgreSQL. As the [heatmap](https://www.planetdata.world/Pandemic/racing) and [bubbles](https://www.planetdata.world/Pandemic/bubbles) visualizations rely on these tables, so too do the visualizations which update in order to show relevant data. This is all the result of these self-sufficient functions (you’ll notice a third table exists in the database (uscounties); this was originally meant to be a dynamic table but it proved too much for both Lambda functions and Heroku). 
 
