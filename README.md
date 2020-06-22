@@ -51,6 +51,8 @@ Predictive Modeling: **Facebook Prophet**, **Random Forest Regressor**
 
 # Getting Started
 
+## A note before you begin: 
+
 This application is primarily serverless. [9 packaged functions](https://github.com/Lambda-School-Labs/earth-dashboard-ds/tree/master/AWSLambda) (AWS Lambda) are located on AWS:
 
 * 7 functions are accessible via AWS API Gateway. These [endpoints](#aws-api-gateway-endpoints) return a json string — data that has been formatted, filtered, and wrangled by the DS team (and in cases of dynamic data, placed into the PostgreSQL database). 
