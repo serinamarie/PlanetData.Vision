@@ -86,7 +86,7 @@ Otherwise you may not have the right environment variables.
 
 ## Running tests
 
-As there are only 2 endpoints for the Flask API, there are only a few tests and this area could be more robust in a later build.
+As only 2 endpoints exist for the Flask API, only a few tests exist for this application. This area should be more robust in a later build.
 
 To run, navigate to the application directory of the repository and type:
 
