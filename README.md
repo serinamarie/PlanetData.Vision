@@ -366,4 +366,6 @@ FLASK_ENV=development
 
 
 ## Initial Database Migration
-- [Data Migration Notebook](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Web_API_to_DB_Migration.ipynb)
+
+You can quickly add a new table to the database and insert a large amount of data via Jupyter notebook in Colab.
+[Data Migration Notebook](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Web_API_to_DB_Migration.ipynb)
