@@ -76,7 +76,7 @@ Why is there a Flask app, then, you ask, if this is all serverless? Why am I nec
 
 Go ahead and clone this repository into the directory of your choosing. You'll need to put the [Heroku Environment Variables](#heroku-environment-variables) into a .env file in your base directory. 
 
-To start up the app locally, navigate to your FLASK directory via the CLI and type
+To start up the app locally, navigate to the FLASK directory via the CLI and type
 
     flask run
 
