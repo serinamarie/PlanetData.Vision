@@ -357,7 +357,6 @@ create a .env file that includes the following:
 SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://username:password@databaseurl'
 TESTING=True
 DEBUG=True
-SECRETKEY= secret key
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 SQLALCHEMY_ECHO=True
 FLASK_APP=application.py
