@@ -53,13 +53,13 @@ Predictive Modeling: **Facebook Prophet**, **Random Forest Regressor**
 
 This application is primarily serverless. [9 packaged functions](https://github.com/Lambda-School-Labs/earth-dashboard-ds/tree/master/AWSLambda) (AWS Lambda) are located on AWS:
 
-* 7 are accessible via AWS API Gateway. These [endpoints](#aws-api-gateway-endpoints) return a json string — data that has been formatted, filtered, and wrangled by the DS team (and in cases of dynamic data, placed into the PostgreSQL database). 
+* 7 functions are accessible via AWS API Gateway. These [endpoints](#aws-api-gateway-endpoints) return a json string — data that has been formatted, filtered, and wrangled by the DS team (and in cases of dynamic data, placed into the PostgreSQL database). 
 
-* 2 functions, however, update existing tables in the database with new data from various [external API data sources](https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest). Each day a CloudWatch rule triggers these functions, updating the summary and covidall tables to get today’s data into the AWS RDS PostgreSQL. As the [heatmap](https://www.planetdata.world/Pandemic/racing) and [bubbles](https://www.planetdata.world/Pandemic/bubbles) visualizations rely on these tables, so too do the visualizations which update in order to show relevant data. This is all the result of these self-sufficient functions (you’ll notice a third table exists in the database (uscounties); this was originally meant to be a dynamic table but it proved too much for both Lambda functions and Heroku). 
+* 2 functions, however, update existing tables in the database with new data from various [external API data sources](https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest). Each day a CloudWatch rule triggers the 2 functions to parse the data from the external APIs, updating the [summary](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/AWSLambda/summary_db_add/lambda_function.py) and [covidall](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/AWSLambda/covidall_db_add/lambda_function.py) tables to get today’s data into the AWS RDS PostgreSQL. As the [heatmap](https://www.planetdata.world/Pandemic/racing) and [bubbles](https://www.planetdata.world/Pandemic/bubbles) visualizations rely on these tables, so too do the visualizations which update in order to show relevant data. This is all the result of these self-sufficient functions. Side note: You’ll notice a third table exists in the database (uscounties); this was originally meant to be a dynamic table but it proved too much for both Lambda functions and Heroku. 
 
 Why is there a Flask app, then, you ask, if this is all serverless? Why am I necessary?
 
-* There are [2 endpoints](#heroku-endpoints) which could not be made serverless (but go ahead and try with Google Cloud functions (untried), for example, or perhaps deploy them elsewhere). These exist in the Flask app, deployed to Heroku. The first endpoint simply returns the data from the uscounties table in the database for web to visualize the [heatmap](planetdata.world/pandemic/heatmap). 
+* There are [2 endpoints](#heroku-endpoints) which could not be made serverless (but go ahead and try with other cloud services such as Google Cloud functions, for example, or perhaps deploy them elsewhere). These exist in the Flask app, deployed to Heroku. The first endpoint simply returns the data from the uscounties table in the database for web to visualize the [heatmap](planetdata.world/pandemic/heatmap). 
 
 * The second endpoint exists only to be requested by a Lambda function, which in turn is each day triggered by a CloudWatch rule. Why can’t the Lambda function package just call directly to the external API so that we don’t need a Flask API endpoint? Well, Lambda functions are meant to be small and singly-tasked and the [external API](https://api.covid19api.com/country/us/status/confirmed/live) used for the [visualization](planetdata.world/pandemic/heatmap) returns too large a payload for the Lambda function to accept (and is difficult to filter by day). As all 380,000~ data points are necessary for this visualization, things get tricky and ultimately  we realized that static data would better capture the dramatic and exponential first 4 months of the COVID-19 pandemic.
 
@@ -68,7 +68,7 @@ Why is there a Flask app, then, you ask, if this is all serverless? Why am I nec
     * Flask (preferred: Flask-SQLAlchemy, Flask-RestPlus, Flask-Marshmallow)
     * SQL, especially for PostgreSQL
     * Knowledge of how to run an application locally
-    * Heroku or another web server (only if part of the build-on for this project)
+    * Heroku or another web server (if part of the build-on for this project)
 
 ## Installing 
 
@@ -96,7 +96,7 @@ Or from the FLASK directory of the repository you may type:
     
     python -m application.test 
 
-These tests simply check the external APIs from which they request a response.
+These tests simply check the [external APIs](https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest) from which they request a response.
 
 ## Deployment
 
