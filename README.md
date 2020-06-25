@@ -51,17 +51,17 @@ Predictive Modeling: **Facebook Prophet**, **Random Forest Regressor**
 
 # Getting Started
 
-## A note before you begin: 
+## A note before you begin:
 
 This application is primarily serverless. [9 packaged functions](https://github.com/Lambda-School-Labs/earth-dashboard-ds/tree/master/AWSLambda) (AWS Lambda) are located on AWS:
 
-* 7 functions are accessible via AWS API Gateway. These [endpoints](#aws-api-gateway-endpoints) return a json string — data that has been formatted, filtered, and wrangled by the DS team (and in cases of dynamic data, placed into the PostgreSQL database). 
+* 7 functions are accessible via AWS API Gateway. These [endpoints](#aws-api-gateway-endpoints) return a json string — data that has been formatted, filtered, and wrangled by the DS team (and in cases of dynamic data, placed into the PostgreSQL database).
 
-* 2 functions, however, update existing tables in the database with new data from various [external API data sources](https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest). Each day a CloudWatch rule triggers the 2 functions to parse the data from the external APIs, updating the [summary](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/AWSLambda/summary_db_add/lambda_function.py) and [covidall](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/AWSLambda/covidall_db_add/lambda_function.py) tables to get today’s data into the AWS RDS PostgreSQL. As the [heatmap](https://www.planetdata.world/Pandemic/racing) and [bubbles](https://www.planetdata.world/Pandemic/bubbles) visualizations rely on these tables, so too do the visualizations which update in order to show relevant data. This is all the result of these self-sufficient functions. Side note: You’ll notice a third table exists in the database (uscounties); this was originally meant to be a dynamic table but it proved too much for both Lambda functions and Heroku. 
+* 2 functions, however, update existing tables in the database with new data from various [external API data sources](https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest). Each day a CloudWatch rule triggers the 2 functions to parse the data from the external APIs, updating the [summary](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/AWSLambda/summary_db_add/lambda_function.py) and [covidall](https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/AWSLambda/covidall_db_add/lambda_function.py) tables to get today’s data into the AWS RDS PostgreSQL. As the [heatmap](https://www.planetdata.world/Pandemic/racing) and [bubbles](https://www.planetdata.world/Pandemic/bubbles) visualizations rely on these tables, so too do the visualizations which update in order to show relevant data. This is all the result of these self-sufficient functions. Side note: You’ll notice a third table exists in the database (uscounties); this was originally meant to be a dynamic table but it proved too much for both Lambda functions and Heroku.
 
 Why is there a Flask app, then, you ask, if this is all serverless? Why am I necessary?
 
-* There are [2 endpoints](#heroku-endpoints) which could not be made serverless (but go ahead and try with other cloud services such as Google Cloud functions, for example). These exist in the Flask app, deployed to Heroku. The first endpoint simply returns the data from the uscounties table in the database for web to visualize the [heatmap](planetdata.world/pandemic/heatmap). 
+* There are [2 endpoints](#heroku-endpoints) which could not be made serverless (but go ahead and try with other cloud services such as Google Cloud functions, for example). These exist in the Flask app, deployed to Heroku. The first endpoint simply returns the data from the uscounties table in the database for web to visualize the [heatmap](planetdata.world/pandemic/heatmap).
 
 * The second endpoint exists only to be requested by a Lambda function, which in turn is each day triggered by a CloudWatch rule. Why can’t the Lambda function package just call directly to the external API so that we don’t need a Flask API endpoint? Well, Lambda functions are meant to be small and singly-tasked and the [external API](https://api.covid19api.com/country/us/status/confirmed/live) used for the [visualization](planetdata.world/pandemic/heatmap) returns too large a payload for the Lambda function to accept (and is difficult to filter by date). As all 380,000~ data points are necessary to display this visualization properly, things got tricky and ultimately we realized that static data would better capture the dramatic and exponential first 4 months of the COVID-19 pandemic.
 
@@ -72,9 +72,9 @@ Why is there a Flask app, then, you ask, if this is all serverless? Why am I nec
     * Knowledge of how to run an application locally
     * Heroku or another web server (if part of the build-on for this project)
 
-## Installing 
+## Installing
 
-Go ahead and clone this repository into the directory of your choosing. You'll need to put the [Heroku Environment Variables](#heroku-environment-variables) into a .env file in your base directory. 
+Go ahead and clone this repository into the directory of your choosing. You'll need to put the [Heroku Environment Variables](#heroku-environment-variables) into a .env file in your base directory.
 
 To start up the app locally, navigate to the FLASK directory via the CLI and type
 
@@ -93,27 +93,27 @@ As only 2 endpoints exist for the Flask API, only a few tests exist for this app
 To run, navigate to the application directory of the repository and type:
 
     pytest test.py
-    
+
 Or from the FLASK directory of the repository you may type:
-    
-    python -m application.test 
+
+    python -m application.test
 
 These tests simply check the [external APIs](https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest) from which they request a response.
 
 ## Deployment to Heroku
 
-Create a new app on [Heroku](https://dashboard.heroku.com/apps). Next, deployment of an application will require creating a special type of git remote called a Heroku remote (a Heroku-hosted remote). You can set this up in your remote repository on github by first logging in to heroku with 
-    
+Create a new app on [Heroku](https://dashboard.heroku.com/apps). Next, deployment of an application will require creating a special type of git remote called a Heroku remote (a Heroku-hosted remote). You can set this up in your remote repository on github by first logging in to heroku with
+
     heroku login
 
 Once you have logged in, type
-    
+
     heroku git:remote -a whatever_you_named_your_app
 
 As the app cannot be run from the root directory of the repository, one MUST use
-    
+
     git subtree push --prefix FLASK heroku master
-    
+
 in order to let Heroku know where the application is, as it will be looking for the Pipfile. If you renamed your Heroku remote to something besides 'heroku,' replace 'heroku' in the command above with whatever you renamed it.
 
 ## Data Sources
@@ -242,17 +242,17 @@ Returns the country code, year, agricultural land in sq. km, electrical power co
 
 ```typescript
 {
-	"Country Name": string, 
-  	"Country Code": string, 
-  	"Year": number, 
-  	"Agricultural land (sq. km)": number, 
-  	"Electric power consumption (kWh per capita)": number, 
-  	"GDP per capita growth (annual %)": number, 
- 	"Livestock production index (2004-2006 = 100)": number, 
-  	"Ores and metals exports (% of merchandise exports)": number, 
- 	"Urban population": number, 
-  	"Crop production index (2004-2006 = 100)": number, 
-  	"Food production index (2004-2006 = 100)": number, 
+	"Country Name": string,
+  	"Country Code": string,
+  	"Year": number,
+  	"Agricultural land (sq. km)": number,
+  	"Electric power consumption (kWh per capita)": number,
+  	"GDP per capita growth (annual %)": number,
+ 	"Livestock production index (2004-2006 = 100)": number,
+  	"Ores and metals exports (% of merchandise exports)": number,
+ 	"Urban population": number,
+  	"Crop production index (2004-2006 = 100)": number,
+  	"Food production index (2004-2006 = 100)": number,
   	"Forest area (% of land area)": number
 }
 ```
@@ -289,24 +289,24 @@ Returns the number of bird sightings for that species in 1970, 1975, 1981, 1985,
 
 ```typescript
 {
-	"1970": number, 
-	"1975": number, 
-	"1981": number, 
-	"1985": number, 
-	"1990": number, 
-	"1998": number, 
-	"2004": number, 
-	"2011": number, 
+	"1970": number,
+	"1975": number,
+	"1981": number,
+	"1985": number,
+	"1990": number,
+	"1998": number,
+	"2004": number,
+	"2011": number,
 	"2015": number
 }
 ```
 
 ### AWS Environment Variables
-In order to re-create the [AWS Lambda functions](https://github.com/Lambda-School-Labs/earth-dashboard-ds/tree/master/AWSLambda) correctly, the user must set up their own environment variables in each AWS Lambda function. 
+In order to re-create the [AWS Lambda functions](https://github.com/Lambda-School-Labs/earth-dashboard-ds/tree/master/AWSLambda) correctly, the user must set up their own environment variables in each AWS Lambda function.
 
 ```
-RDS_HOST = database url 
-RDS_USERNAME = username 
+RDS_HOST = database url
+RDS_USERNAME = username
 RDS_USER_PWD = password
 ```
 
@@ -337,7 +337,7 @@ Returns the latitude, longitude, number of confirmed cases, and date for each da
 	"dates": string ("MM/dd/yy")
 }
 ```
-### COVID-19 Global Fatalities Racing Chart - Refresh Data (Heroku, AWS Lambda and AWS Cloudwatch)
+### COVID-19 Global Fatalities Racing Chart Part 1 - Refresh Data (Heroku, AWS Lambda and AWS Cloudwatch)
 
 #### URL
 
@@ -345,7 +345,17 @@ https://ds-backend-planetdata.herokuapp.com//covid/covidall/add
 
 #### Description
 
-Pulls data from covid/all API and inserts it into the AWS RDS PostgreSQL. Triggered once a day by a AWS CloudWatch rule. No endpoint provided so as to not to create duplicate records in the database. Can take up to 20 mins locally.
+Pulls new US records data from covid/all API and inserts it into the AWS RDS PostgreSQL. Triggered once a day by a AWS CloudWatch rule.
+
+### COVID-19 Global Fatalities Racing Chart Part 2 - Refresh Data (Heroku, AWS Lambda and AWS Cloudwatch)
+
+#### URL
+
+https://ds-backend-planetdata.herokuapp.com//covid/covidall/add/part2
+
+#### Description
+
+Pulls new, non-US records data from covid/all API and inserts it into the AWS RDS PostgreSQL. Triggered once a day by a AWS CloudWatch rule.
 
 
 ### Heroku Environment Variables

@@ -30,7 +30,7 @@ def lambda_handler(event, context):
 
     covidall_add_endpoint = "https://ds-backend-planetdata.herokuapp.com/covid/covidall/add"
     # Request the data
-    response = requests.get(covidall_post_endpoint)
+    response = requests.get(covidall_add_endpoint)
 
     return {
         'statusCode': 200,
