@@ -82,20 +82,18 @@ class CovidAllPull(Resource):
 
                     daily_death_total += record['Deaths']
 
-        if daily_death_total > 0:
+        # Take in a json string and creates a new record for it
+        new_record = CovidAll(
+            country='United States',
+            countrycode='US',
+            date=yesterdays_date,
+            deaths=daily_death_total)
 
-            # Take in a json string and creates a new record for it
-            new_record = CovidAll(
-                country='United States',
-                countrycode='US',
-                date=yesterdays_date,
-                deaths=daily_death_total)
+        # Add record to database
+        db.session.add(new_record)
 
-            # Add record to database
-            db.session.add(new_record)
-
-            # Commit all records to database
-            db.session.commit()
+        # Commit all records to database
+        db.session.commit()
 
         # Return statement of verification
         return {
