@@ -60,51 +60,44 @@ class CovidAllPull(Resource):
 
         # Yesterday's date works better across timezones to ensure
         # no data will be missed
-        yesterdays_date = todays_date - timedelta(1)
+        yesterdays_date = todays_date - timedelta(2)
+
+        daily_death_total = 0
 
         for record in record_list:
 
-            # format of the existing json date string
-            format = '%Y-%m-%dT%H:%M:%SZ'
+            # filter for only US records
+            if record['Country'] == 'United States of America':
 
-            # make the json record 'date' column a datetime object
-            dt = datetime.strptime(record['Date'], format)
+                # format of the existing json date string
+                format = '%Y-%m-%dT%H:%M:%SZ'
 
-            # format it to match todays_date
-            date_record = date(dt.year, dt.month, dt.day)
+                # make the json record 'date' column a datetime object
+                dt = datetime.strptime(record['Date'], format)
 
-            if date_record == yesterdays_date:
+                # format it to match todays_date
+                date_record = date(dt.year, dt.month, dt.day)
 
-                # filter for only US records
-                if record['Country'] == 'United States of America':
+                if date_record == yesterdays_date:
 
-                    # Check is US record exists - US requires robust filtering
-                    # including citycode
-                    if CovidAll.query.filter_by(citycode=record['CityCode']).first() is None:
+                    daily_death_total += record['Deaths']
 
-                        # Take in a json string and creates a new record for it
-                        new_record = CovidAll(
-                            country=record['Country'],
-                            countrycode=record['CountryCode'],
-                            province=record['Province'],
-                            city=record['City'],
-                            citycode=record['CityCode'],
-                            lat=record['Lat'],
-                            lon=record['Lon'],
-                            confirmed=record['Confirmed'],
-                            deaths=record['Deaths'],
-                            recovered=record['Recovered'],
-                            active=record['Active'],
-                            date=record['Date']
-                        )
+        if daily_death_total > 0:
 
-                        # Add record to database
-                        db.session.add(new_record)
+            # Take in a json string and creates a new record for it
+            new_record = CovidAll(
+                country='United States',
+                countrycode='US',
+                date=yesterdays_date,
+                deaths=daily_death_total)
 
-                    # Commit all records to database
-                    db.session.commit()
+            # Add record to database
+            db.session.add(new_record)
 
-            # Return statement of verification
+            # Commit all records to database
+            db.session.commit()
+
+        # Return statement of verification
         return {
             'statusCode': 200
         }
@@ -125,51 +118,36 @@ class CovidAllPull(Resource):
 
         # Yesterday's date works better across timezones to ensure
         # no data will be missed
-        yesterdays_date = todays_date - timedelta(1)
+        yesterdays_date = todays_date - timedelta(2)
 
         for record in record_list:
 
-            # format of the existing json date string
-            format = '%Y-%m-%dT%H:%M:%SZ'
+            # Make sure it isn't a US record (those require more filtering)
+            if record['Country'] != 'United States of America':
 
-            # make the json record 'date' column a datetime object
-            dt = datetime.strptime(record['Date'], format)
+                # format of the existing json date string
+                format = '%Y-%m-%dT%H:%M:%SZ'
 
-            # format it to match todays_date
-            date_record = date(dt.year, dt.month, dt.day)
+                # make the json record 'date' column a datetime object
+                dt = datetime.strptime(record['Date'], format)
 
-            if date_record == yesterdays_date:
+                # format it to match todays_date
+                date_record = date(dt.year, dt.month, dt.day)
 
-                # Make sure it isn't a US record (those require more filtering)
-                if record['Country'] != 'United States of America':
+                if date_record == yesterdays_date:
 
-                    # Check if record exists already
-                    if CovidAll.query.filter_by(
-                            country=record['Country'],
-                            deaths=record['Confirmed'],
-                            date=record['Date']).first() is None:
+                    # Take in a json string and creates a new record for it
+                    new_record = CovidAll(
+                        country=record['Country'],
+                        date=yesterdays_date,
+                        deaths=record['Deaths']
+                    )
 
-                        # Take in a json string and creates a new record for it
-                        new_record = CovidAll(
-                            country=record['Country'],
-                            countrycode=record['CountryCode'],
-                            province=record['Province'],
-                            city=record['City'],
-                            citycode=record['CityCode'],
-                            lat=record['Lat'],
-                            lon=record['Lon'],
-                            confirmed=record['Confirmed'],
-                            deaths=record['Deaths'],
-                            recovered=record['Recovered'],
-                            active=record['Active'],
-                            date=record['Date']
-                        )
+                    # Add record to database
+                    db.session.add(new_record)
 
-                        # Add record to database
-                        db.session.add(new_record)
-
-                    # Commit all records to database
-                    db.session.commit()
+                # Commit all records to database
+                db.session.commit()
 
         # Return statement of verification
         return {
