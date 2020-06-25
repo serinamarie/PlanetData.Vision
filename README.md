@@ -150,7 +150,7 @@ in order to let Heroku know where the application is, as it will be looking for 
 ### Architecture
 <img src="https://github.com/Lambda-School-Labs/earth-dashboard-ds/blob/master/Notebooks/Images/DSArchitecture.png" width = "600" />
 
-#### Backend deployed serverlessly through AWS API Gateway and AWS Lambda, with two endpoints existing on a [Heroku](https://ds-backend-planetdata.herokuapp.com/) server.<br>
+#### Backend deployed serverlessly through AWS API Gateway and AWS Lambda, with three endpoints existing on a [Heroku](https://ds-backend-planetdata.herokuapp.com/) server.<br>
 
 ## AWS API Gateway Endpoints
 
