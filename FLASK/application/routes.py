@@ -48,7 +48,7 @@ class USCountiesPull(Resource):
 @ns_conf.route("/covidall/add")
 class CovidAllPull(Resource):
     def get(self):
-        '''Parses new data from the covid/all API into the AWS RDS PostgreSQL.
+        '''Parses new US data from the covid/all API into the AWS RDS PostgreSQL.
         An AWS Lambda function calls this endpoint each day.'''
 
         # Request the data from external API
@@ -75,41 +75,12 @@ class CovidAllPull(Resource):
 
             if date_record == yesterdays_date:
 
+                # filter for only US records
                 if record['Country'] == 'United States of America':
+
                     # Check is US record exists - US requires robust filtering
                     # including citycode
-                    if CovidAll.query.filter_by(citycode=record['CityCode'], date=record['Date']).first() is not None:
-                        pass
-                    else:
-                        # Take in a json string and creates a new record for it
-                        new_record = CovidAll(
-                            country=record['Country'],
-                            countrycode=record['CountryCode'],
-                            province=record['Province'],
-                            city=record['City'],
-                            citycode=record['CityCode'],
-                            lat=record['Lat'],
-                            lon=record['Lon'],
-                            confirmed=record['Confirmed'],
-                            deaths=record['Deaths'],
-                            recovered=record['Recovered'],
-                            active=record['Active'],
-                            date=record['Date']
-                        )
-
-                        # Add record to database
-                        db.session.add(new_record)
-
-                    # Commit all records to database
-                    db.session.commit()
-
-                else:
-                    # if country not US, no need for robust filtering
-
-                        # Check if record exists already
-                    if CovidAll.query.filter_by(country=record['Country'], deaths=record['Deaths'], date=record['Date']).first() is not None:
-                        pass
-                    else:
+                    if CovidAll.query.filter_by(citycode=record['CityCode']).first() is None:
 
                         # Take in a json string and creates a new record for it
                         new_record = CovidAll(
@@ -134,6 +105,73 @@ class CovidAllPull(Resource):
                     db.session.commit()
 
             # Return statement of verification
+        return {
+            'statusCode': 200
+        }
+
+
+@ns_conf.route("/covidall/add/part2")
+class CovidAllPull(Resource):
+    def get(self):
+        '''Parses new non-US data from the covid/all API into the AWS RDS
+        PostgreSQL. An AWS Lambda function calls this endpoint each day.'''
+
+        # Request the data from external API
+        covid_all_data = "https://api.covid19api.com/all"
+        record_list = requests.get(covid_all_data).json()
+
+        # Get new data (from today)
+        todays_date = datetime.now().date()
+
+        # Yesterday's date works better across timezones to ensure
+        # no data will be missed
+        yesterdays_date = todays_date - timedelta(1)
+
+        for record in record_list:
+
+            # format of the existing json date string
+            format = '%Y-%m-%dT%H:%M:%SZ'
+
+            # make the json record 'date' column a datetime object
+            dt = datetime.strptime(record['Date'], format)
+
+            # format it to match todays_date
+            date_record = date(dt.year, dt.month, dt.day)
+
+            if date_record == yesterdays_date:
+
+                # Make sure it isn't a US record (those require more filtering)
+                if record['Country'] != 'United States of America':
+
+                    # Check if record exists already
+                    if CovidAll.query.filter_by(
+                            country=record['Country'],
+                            deaths=record['Confirmed'],
+                            date=record['Date']).first() is None:
+
+                        # Take in a json string and creates a new record for it
+                        new_record = CovidAll(
+                            country=record['Country'],
+                            countrycode=record['CountryCode'],
+                            province=record['Province'],
+                            city=record['City'],
+                            citycode=record['CityCode'],
+                            lat=record['Lat'],
+                            lon=record['Lon'],
+                            confirmed=record['Confirmed'],
+                            deaths=record['Deaths'],
+                            recovered=record['Recovered'],
+                            active=record['Active'],
+                            date=record['Date']
+                        )
+
+                        # Add record to database
+                        db.session.add(new_record)
+
+                    # Commit all records to database
+                    db.session.commit()
+
+        # Return statement of verification
         return {
             'statusCode': 200
         }
