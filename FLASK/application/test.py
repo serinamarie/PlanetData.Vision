@@ -19,17 +19,5 @@ class HeatmapTest(unittest.TestCase):
         response = tester.get("/covid/uscounties/query")
         self.assertEqual(response.content_type, 'application/json')
 
-
-class RacechartTest(unittest.TestCase):
-    '''Testing the covidall table used for the racechart visualization'''
-
-    def test_index_content(self):
-        # Check if content return is application/json
-        app = create_app()
-        tester = app.test_client(self)
-        response = tester.get("/covid/covidall/add")
-        self.assertEqual(response.content_type, 'text/html')
-
-
 if __name__ == '__main__':
     unittest.main()
