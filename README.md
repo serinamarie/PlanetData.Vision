@@ -1,4 +1,4 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/89fe2c715447b3929eab/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/earth-dashboard-ds/maintainability)
+e[![Maintainability](https://api.codeclimate.com/v1/badges/89fe2c715447b3929eab/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/earth-dashboard-ds/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/89fe2c715447b3929eab/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/earth-dashboard-ds/test_coverage)
 
 # PlanetData.World
@@ -310,7 +310,7 @@ RDS_USER_PWD = password
 
 In addition, create a Dockerfile based on the Amazon Linux image to create the correct Python environment (we used 3.7). Refer to [this article](https://medium.com/@niklongstone/how-to-build-an-aws-lambda-function-with-python-3-7-the-right-way-21888e2edbe8) for help if need be.
 
-## Heroku Endpoints
+## Heroku Endpoint
 
 ### COVID-19 US Cases Heatmap Data
 
