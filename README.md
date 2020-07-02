@@ -335,26 +335,6 @@ Returns the latitude, longitude, number of confirmed cases, and date for each da
 	"dates": string ("MM/dd/yy")
 }
 ```
-### COVID-19 Global Fatalities Racing Chart Part 1 - Refresh Data (Heroku, AWS Lambda and AWS Cloudwatch)
-
-#### URL
-
-https://ds-backend-planetdata.herokuapp.com//covid/covidall/add
-
-#### Description
-
-Pulls new US records data from covid/all API and inserts it into the AWS RDS PostgreSQL. Triggered once a day by a AWS CloudWatch rule.
-
-### COVID-19 Global Fatalities Racing Chart Part 2 - Refresh Data (Heroku, AWS Lambda and AWS Cloudwatch)
-
-#### URL
-
-https://ds-backend-planetdata.herokuapp.com//covid/covidall/add/part2
-
-#### Description
-
-Pulls new, non-US records data from covid/all API and inserts it into the AWS RDS PostgreSQL. Triggered once a day by a AWS CloudWatch rule.
-
 
 ### Heroku Environment Variables
 In order for the Flask app to function correctly, the user must set up their own environment variables.
