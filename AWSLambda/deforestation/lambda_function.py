@@ -2,7 +2,7 @@ import json
 
 
 def lambda_handler(event, context):
-    '''Deforestation predictions function'''
+    '''Deforestation prediction function'''
 
     # read airquality.json
     with open('Deforestation_Predictions.json', 'r') as f:
